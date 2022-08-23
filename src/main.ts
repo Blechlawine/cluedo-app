@@ -4,7 +4,11 @@ import App from "./App.vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import { MdClose } from "oh-vue-icons/icons";
+addIcons(MdClose);
+
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
-createApp(App).use(pinia).mount("#app");
+createApp(App).component("Icon", OhVueIcon).use(pinia).mount("#app");

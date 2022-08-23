@@ -8,9 +8,3 @@ interface ICard {
     id: string;
     name: string;
 }
-
-interface IGame {
-    date: Date;
-    players: IPlayer[];
-    Cards: ICard[];
-}

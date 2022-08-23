@@ -1,16 +1,15 @@
-import { defineStore } from "pinia";
+import { defineStore, StoreDefinition } from "pinia";
+import usePlayers from "./playerStore";
+
 interface IState {
-    game: IGame | null;
+    playerStore: ReturnType<typeof usePlayers>;
 }
 type TGetters = {};
 interface IActions {}
-const useGames = defineStore<"games", IState, TGetters, IActions>("games", {
+const useGame = defineStore<"games", IState, TGetters, IActions>("games", {
     state: () => ({
-        game: null,
+        playerStore: usePlayers(),
     }),
     persist: true,
-    actions: {
-        
-    },
 });
-export default useGames;
+export default useGame;
