@@ -1,0 +1,27 @@
+table player {
+  id integer
+  name string
+  cardAmount integer
+}
+
+table card {
+  id uuid
+  name string
+}
+
+table question {
+  id integer
+  askerId integer [ref:> player.id]
+  playerHadSomethingId integer [ref:> player.id]
+  playersDidntHaveAnything array(integer) [ref:< player.id]
+  suspectId uuid [ref:> card.id]
+  toolId uuid [ref:> card.id]
+  roomId uuid [ref:> card.id]
+}
+
+table cardExchange {
+  giverId integer [ref:> player.id]
+  takerId integer [ref:> player.id]
+  cardsItCouldHaveBeen array(uuid) [ref:< card.id]
+  questionId integer [ref:> question.id]
+}
