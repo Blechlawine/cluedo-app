@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useGames from "./store/gameStore";
+
+const GameStore = useGames();
+</script>
 
 <template>
-    <div class="btn">Test</div>
+
 </template>
