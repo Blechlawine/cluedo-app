@@ -42,7 +42,26 @@ const onPlayerModalSave = (data: z.input<typeof PlayerValidator>) => {
             <CardModal :open="cardModalOpen" label="cardModal" @save="onCardModalSave"></CardModal>
             <CardList></CardList>
         </div>
-        <div class=""></div>
+        <main class="">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Cards</th>
+                        <th v-for="player in PlayerStore.players" :key="player.id">{{ player.name }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="card in CardStore.cards" :key="card.id">
+                        <td>
+                            {{card.name}}
+                        </td>
+                        <td v-for="player in PlayerStore.players" :key="player.id">
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
     </div>
 </template>
 <style>
