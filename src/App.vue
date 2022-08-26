@@ -6,7 +6,7 @@ import CardModal from "./components/CardModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
 import { CardInput, CardOutput, PlayerInput, PlayerOutput } from "./types/validators";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const CardStore = useCards();
 const PlayerStore = usePlayers();
@@ -15,6 +15,15 @@ const playerModalOpen = ref(false);
 const cardModalOpen = ref(false);
 const cardModalPresetValues = ref<CardOutput | null>(null);
 const playerModalPresetValues = ref<PlayerOutput | null>(null);
+
+const saveData = computed(() =>
+    encodeURIComponent(
+        JSON.stringify({
+            cards: CardStore.cards,
+            players: PlayerStore.players,
+        })
+    )
+);
 
 const onCardModalClose = () => {
     cardModalPresetValues.value = null;
@@ -52,9 +61,13 @@ const startNewGame = () => {
             <label class="btn btn-sm btn-square text-error hover:btn-error" for="newGameModal">
                 <Icon name="md-noteadd"></Icon>
             </label>
-            <button class="btn btn-sm btn-square text-success hover:btn-success">
+            <a
+                :href="`data:text/json;charset=utf-8,${saveData}`"
+                download="saveData.json"
+                class="btn btn-sm btn-square text-success hover:btn-success"
+            >
                 <Icon name="md-save"></Icon>
-            </button>
+            </a>
             <button class="btn btn-sm btn-square text-warning hover:btn-warning">
                 <Icon name="md-fileopen"></Icon>
             </button>
@@ -116,9 +129,7 @@ const startNewGame = () => {
                         <Icon name="md-close"></Icon>
                     </label>
                     <h3 class="text-lg font-bold">Start new game</h3>
-                    <p>
-                        This will delete everything not saved! Are you sure you want to continue?
-                    </p>
+                    <p>This will delete everything not saved! Are you sure you want to continue?</p>
                     <div class="modal-action">
                         <label for="newGameModal" class="btn btn-sm btn-ghost">Cancel</label>
                         <label for="newGameModal" class="btn btn-sm btn-primary" @click="startNewGame">Continue</label>
