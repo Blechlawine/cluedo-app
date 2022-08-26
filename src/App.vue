@@ -53,6 +53,21 @@ const startNewGame = () => {
     PlayerStore.players = [];
     CardStore.cards = [];
 };
+
+const loadSaveData = (event: Event) => {
+    const eventTarget = event.target as HTMLInputElement;
+    if (!eventTarget.value.length) return;
+    else if (eventTarget.files) {
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            const raw = e.target?.result as string;
+            const data = JSON.parse(raw); //TODO: type this
+            PlayerStore.players = data.players;
+            CardStore.cards = data.cards;
+        };
+        reader.readAsText(eventTarget.files[0]);
+    }
+};
 </script>
 
 <template>
@@ -68,9 +83,9 @@ const startNewGame = () => {
             >
                 <Icon name="md-save"></Icon>
             </a>
-            <button class="btn btn-sm btn-square text-warning hover:btn-warning">
+            <label for="saveDataInput" class="btn btn-sm btn-square text-warning hover:btn-warning">
                 <Icon name="md-fileopen"></Icon>
-            </button>
+            </label>
             <div class="divider divider-horizontal"></div>
             <button class="btn btn-sm">Player has card</button>
             <button class="btn btn-sm">Question</button>
@@ -136,6 +151,7 @@ const startNewGame = () => {
                     </div>
                 </div>
             </div>
+            <input class="hidden" type="file" name="saveDataInput" id="saveDataInput" @change="loadSaveData" />
         </teleport>
     </div>
 </template>
