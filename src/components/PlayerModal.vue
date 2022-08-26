@@ -39,8 +39,8 @@
     </teleport>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { PlayerInput } from "../types/validators";
+import { PropType, ref, watch } from "vue";
+import { PlayerInput, PlayerOutput } from "../types/validators";
 
 const props = defineProps({
     open: {
@@ -55,7 +55,27 @@ const props = defineProps({
         type: String,
         default: "Create new player",
     },
+    presetValues: {
+        type: Object as PropType<PlayerOutput | null>,
+        default: null,
+    },
 });
+
+watch(
+    () => props.presetValues,
+    () => {
+        if (props.presetValues) {
+            name.value = props.presetValues.name;
+            cardAmount.value = props.presetValues.cardAmount;
+        } else {
+            name.value = "";
+            cardAmount.value = 0;
+        }
+    },
+    {
+        deep: true,
+    }
+);
 
 const emit = defineEmits<{
     (e: "close"): void;
@@ -68,10 +88,12 @@ const cardAmount = ref(0);
 const closeBtnClick = () => {
     emit("close");
     name.value = "";
+    cardAmount.value = 0;
 };
 
 const saveBtnClick = () => {
     emit("save", {
+        ...props.presetValues,
         name: name.value,
         cardAmount: cardAmount.value,
     });

@@ -21,6 +21,7 @@ const useCards = defineStore<"cards", IState, TGetters, IActions>("cards", {
     actions: {
         upsert(card) {
             const parsed = CardValidator.safeParse(card);
+            console.log(parsed, card);
             if (parsed.success) {
                 const data = parsed.data;
                 let temp = this.cards.find((c) => c.id === data.id);

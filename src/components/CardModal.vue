@@ -50,15 +50,19 @@ const props = defineProps({
     },
 });
 
-watch(() => props.presetValues, () => {
-    if (props.presetValues) {
-        name.value = props.presetValues.name;
-    } else {
-        name.value = "";
+watch(
+    () => props.presetValues,
+    () => {
+        if (props.presetValues) {
+            name.value = props.presetValues.name;
+        } else {
+            name.value = "";
+        }
+    },
+    {
+        deep: true,
     }
-}, {
-    deep: true,
-});
+);
 
 const name = ref("");
 
