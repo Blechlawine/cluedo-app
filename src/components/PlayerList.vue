@@ -8,7 +8,7 @@
                 <th>Delete</th>
             </tr>
         </thead>
-        <tbody>
+        <Draggable tag="tbody" :list="PlayerStore.players" ghost-class="opacity-50">
             <tr v-for="player in PlayerStore.players" class="hover" :key="player.id">
                 <td>{{ player.name }}</td>
                 <td>{{ player.cardAmount }}</td>
@@ -22,16 +22,20 @@
                     </label>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-square btn-ghost hover:btn-error" @click="() => onDeleteClick(player.id)">
+                    <button
+                        class="btn btn-sm btn-square btn-ghost hover:btn-error"
+                        @click="() => onDeleteClick(player.id)"
+                    >
                         <Icon name="md-delete"></Icon>
                     </button>
                 </td>
             </tr>
-        </tbody>
+        </Draggable>
     </table>
 </template>
 <script setup lang="ts">
 import usePlayers from "../store/playerStore";
+import { VueDraggableNext as Draggable } from "vue-draggable-next";
 
 const PlayerStore = usePlayers();
 
