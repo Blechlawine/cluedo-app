@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia';
-import { z } from 'zod';
-import { PlayerValidator } from '../types/validators';
+import { PlayerInput, PlayerOutput, PlayerValidator } from '../types/validators';
 interface IState {
-    players: z.output<typeof PlayerValidator>[];
+    players: PlayerOutput[];
 }
 type TGetters = {};
 interface IActions {
-    upsert: (player: z.input<typeof PlayerValidator>) => void;
+    upsert: (player: PlayerInput) => void;
 }
 const usePlayers = defineStore<'players', IState, TGetters, IActions>('players', {
     state: () => ({

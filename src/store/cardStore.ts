@@ -1,18 +1,23 @@
 import { defineStore } from "pinia";
-import { z } from "zod";
-import { CardValidator } from "../types/validators";
+import { CardInput, CardOutput, CardValidator } from "../types/validators";
 interface IState {
-    cards: z.output<typeof CardValidator>[];
+    cards: CardOutput[];
 }
-type TGetters = {};
+type TGetters = {
+    getByID: (state: IState) => (id: string) => CardOutput | undefined;
+};
 interface IActions {
-    upsert: (card: z.input<typeof CardValidator>) => void;
+    upsert: (card: CardInput) => void;
+    deleteByID: (id: string) => void;
 }
 const useCards = defineStore<"cards", IState, TGetters, IActions>("cards", {
     state: () => ({
         cards: [],
     }),
     persist: true,
+    getters: {
+        getByID: (state) => (id) => state.cards.find((c) => c.id === id),
+    },
     actions: {
         upsert(card) {
             const parsed = CardValidator.safeParse(card);
@@ -25,6 +30,9 @@ const useCards = defineStore<"cards", IState, TGetters, IActions>("cards", {
                     this.cards.push(data);
                 }
             }
+        },
+        deleteByID(id) {
+            this.cards = this.cards.filter((c) => c.id !== id);
         },
     },
 });

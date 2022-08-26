@@ -40,8 +40,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { z } from "zod";
-import { PlayerValidator } from "../types/validators";
+import { PlayerInput } from "../types/validators";
 
 const props = defineProps({
     open: {
@@ -60,7 +59,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
     (e: "close"): void;
-    (e: "save", data: z.input<typeof PlayerValidator>): void;
+    (e: "save", data: PlayerInput): void;
 }>();
 
 const name = ref("");

@@ -5,8 +5,8 @@ import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { MdClose } from "oh-vue-icons/icons";
-addIcons(MdClose);
+import { MdClose, MdEdit, MdDelete } from "oh-vue-icons/icons";
+addIcons(MdClose, MdEdit, MdDelete);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);

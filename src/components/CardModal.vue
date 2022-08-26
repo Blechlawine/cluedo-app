@@ -28,9 +28,8 @@
     </teleport>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { z } from "zod";
-import { CardValidator } from "../types/validators";
+import { PropType, ref, watch } from "vue";
+import { CardInput, CardOutput } from "../types/validators";
 
 const props = defineProps({
     open: {
@@ -45,13 +44,27 @@ const props = defineProps({
         type: String,
         default: "Create new card",
     },
+    presetValues: {
+        type: Object as PropType<null | CardOutput>,
+        default: null,
+    },
+});
+
+watch(() => props.presetValues, () => {
+    if (props.presetValues) {
+        name.value = props.presetValues.name;
+    } else {
+        name.value = "";
+    }
+}, {
+    deep: true,
 });
 
 const name = ref("");
 
 const emit = defineEmits<{
     (e: "close"): void;
-    (e: "save", data: z.input<typeof CardValidator>): void;
+    (e: "save", data: CardInput): void;
 }>();
 
 const closeBtnClick = () => {
@@ -61,6 +74,7 @@ const closeBtnClick = () => {
 
 const saveBtnClick = () => {
     emit("save", {
+        ...props.presetValues,
         name: name.value,
     });
     name.value = "";
