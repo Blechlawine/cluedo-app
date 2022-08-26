@@ -5,7 +5,7 @@ import CardList from "./components/CardList.vue";
 import CardModal from "./components/CardModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
-import { CardValidator } from "./types/validators";
+import { CardValidator, PlayerValidator } from "./types/validators";
 import { ref } from "vue";
 import { z } from "zod";
 
@@ -18,6 +18,10 @@ const cardModalOpen = ref(false);
 const onCardModalSave = (data: z.input<typeof CardValidator>) => {
     CardStore.upsert(data);
 };
+
+const onPlayerModalSave = (data: z.input<typeof PlayerValidator>) => {
+    PlayerStore.upsert(data);
+};
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const onCardModalSave = (data: z.input<typeof CardValidator>) => {
                 <h1>Players</h1>
                 <label for="playerModal" class="btn btn-sm modal-button">New Player</label>
             </div>
-            <PlayerModal :open="playerModalOpen" label="playerModal"></PlayerModal>
+            <PlayerModal :open="playerModalOpen" label="playerModal" @save="onPlayerModalSave"></PlayerModal>
             <PlayerList></PlayerList>
         </div>
         <div class="cards flex flex-col p-2 gap-2 border-r-2 border-base-300">
