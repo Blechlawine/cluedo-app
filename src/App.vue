@@ -39,14 +39,19 @@ const onCardListEditItem = (cardId: string) => {
 const onPlayerListEditItem = (playerId: string) => {
     playerModalPresetValues.value = PlayerStore.getByID(playerId) ?? null;
 };
+
+const startNewGame = () => {
+    PlayerStore.players = [];
+    CardStore.cards = [];
+};
 </script>
 
 <template>
     <div class="app grid h-full w-full">
         <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
-            <button class="btn btn-sm btn-square text-error hover:btn-error">
+            <label class="btn btn-sm btn-square text-error hover:btn-error" for="newGameModal">
                 <Icon name="md-noteadd"></Icon>
-            </button>
+            </label>
             <button class="btn btn-sm btn-square text-success hover:btn-success">
                 <Icon name="md-save"></Icon>
             </button>
@@ -103,13 +108,31 @@ const onPlayerListEditItem = (playerId: string) => {
                 </tbody>
             </table>
         </main>
+        <teleport to="body">
+            <input type="checkbox" id="newGameModal" class="modal-toggle" />
+            <div class="modal">
+                <div class="modal-box relative">
+                    <label for="newGameModal" class="btn btn-sm btn-circle absolute right-2 top-2">
+                        <Icon name="md-close"></Icon>
+                    </label>
+                    <h3 class="text-lg font-bold">Start new game</h3>
+                    <p>
+                        This will delete everything not saved! Are you sure you want to continue?
+                    </p>
+                    <div class="modal-action">
+                        <label for="newGameModal" class="btn btn-sm btn-ghost">Cancel</label>
+                        <label for="newGameModal" class="btn btn-sm btn-primary" @click="startNewGame">Continue</label>
+                    </div>
+                </div>
+            </div>
+        </teleport>
     </div>
 </template>
 <style>
 .app {
     grid-template-columns: 1fr 3fr;
     grid-template-rows: min-content 3fr 4fr;
-    grid-template-areas: 
+    grid-template-areas:
         "tools tools"
         "players main"
         "cards main";
