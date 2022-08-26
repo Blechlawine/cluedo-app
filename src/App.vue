@@ -43,6 +43,9 @@ const onPlayerListEditItem = (playerId: string) => {
 
 <template>
     <div class="app grid h-full w-full">
+        <div class="tools flex flex-row border-b-2 border-base-300 p-2">
+            <button class="btn btn-sm">Player has card</button>
+        </div>
         <div class="players flex flex-col p-2 gap-2 border-r-2 border-b-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky top-0">
                 <h1>Players</h1>
@@ -93,22 +96,27 @@ const onPlayerListEditItem = (playerId: string) => {
 </template>
 <style>
 .app {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: min-content 1fr 1fr;
+    grid-template-areas: 
+        "tools tools"
+        "players main"
+        "cards main";
 }
 
 .players {
-    grid-row: 1/3;
-    grid-column: 1;
+    grid-area: players;
 }
 
 .cards {
-    grid-row: 3/5;
-    grid-column: 1;
+    grid-area: cards;
 }
 
 main {
-    grid-row: 1/5;
-    grid-column: 2/5;
+    grid-area: main;
+}
+
+.tools {
+    grid-area: tools;
 }
 </style>
