@@ -22,7 +22,7 @@
                     </label>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-square btn-ghost" @click="() => onDeleteClick(player.id)">
+                    <button class="btn btn-sm btn-square btn-ghost hover:btn-error" @click="() => onDeleteClick(player.id)">
                         <Icon name="md-delete"></Icon>
                     </button>
                 </td>

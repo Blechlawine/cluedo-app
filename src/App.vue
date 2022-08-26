@@ -43,8 +43,19 @@ const onPlayerListEditItem = (playerId: string) => {
 
 <template>
     <div class="app grid h-full w-full">
-        <div class="tools flex flex-row border-b-2 border-base-300 p-2">
+        <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
+            <button class="btn btn-sm btn-square text-error hover:btn-error">
+                <Icon name="md-noteadd"></Icon>
+            </button>
+            <button class="btn btn-sm btn-square text-success hover:btn-success">
+                <Icon name="md-save"></Icon>
+            </button>
+            <button class="btn btn-sm btn-square text-warning hover:btn-warning">
+                <Icon name="md-fileopen"></Icon>
+            </button>
+            <div class="divider divider-horizontal"></div>
             <button class="btn btn-sm">Player has card</button>
+            <button class="btn btn-sm">Question</button>
         </div>
         <div class="players flex flex-col p-2 gap-2 border-r-2 border-b-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky top-0">
@@ -97,7 +108,7 @@ const onPlayerListEditItem = (playerId: string) => {
 <style>
 .app {
     grid-template-columns: 1fr 3fr;
-    grid-template-rows: min-content 1fr 1fr;
+    grid-template-rows: min-content 3fr 4fr;
     grid-template-areas: 
         "tools tools"
         "players main"
