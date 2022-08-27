@@ -137,7 +137,7 @@ const upsertRelation = (playerId: string, cardId: string, value: boolean) => {
             ></CardModal>
             <CardList label="cardModal" @edit-item="onCardListEditItem"></CardList>
         </div>
-        <main class="">
+        <main class="p-2">
             <table class="table table-compact">
                 <thead>
                     <tr>
