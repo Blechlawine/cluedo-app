@@ -15,3 +15,11 @@ export const PlayerValidator = z.object({
 });
 export type PlayerInput = z.input<typeof PlayerValidator>;
 export type PlayerOutput = z.output<typeof PlayerValidator>;
+
+export const PlayerCardRelationValidator = z.object({
+    playerId: z.string(),
+    cardId: z.string(),
+    value: z.boolean(),
+});
+export type PlayerCardRelationInput = z.input<typeof PlayerCardRelationValidator>;
+export type PlayerCardRelationOutput = z.output<typeof PlayerCardRelationValidator>;

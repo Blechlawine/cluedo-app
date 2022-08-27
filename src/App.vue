@@ -5,11 +5,13 @@ import CardList from "./components/CardList.vue";
 import CardModal from "./components/CardModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
+import usePlayerCardRelations from "./store/playerCardRelationStore";
 import { CardInput, CardOutput, PlayerInput, PlayerOutput } from "./types/validators";
 import { computed, ref } from "vue";
 
 const CardStore = useCards();
 const PlayerStore = usePlayers();
+const PlayerCardRelationStore = usePlayerCardRelations();
 
 const playerModalOpen = ref(false);
 const cardModalOpen = ref(false);
@@ -67,6 +69,24 @@ const loadSaveData = (event: Event) => {
         };
         reader.readAsText(eventTarget.files[0]);
     }
+};
+
+const getTdClasses = (playerId: string, cardId: string) => {
+    const relation = PlayerCardRelationStore.getByPlayerIdAndCardId(playerId, cardId);
+    if (relation && relation.value) {
+        return "bg-success text-success-content";
+    } else {
+        return "bg-error text-error-content";
+    }
+};
+
+const upsertRelation = (playerId: string, cardId: string, value: boolean) => {
+    console.log("upsertRelation", playerId, cardId, value);
+    PlayerCardRelationStore.upsert({
+        playerId,
+        cardId,
+        value,
+    });
 };
 </script>
 
@@ -131,7 +151,25 @@ const loadSaveData = (event: Event) => {
                         <td>
                             {{ card.name }}
                         </td>
-                        <td v-for="player in PlayerStore.players" :key="player.id"></td>
+                        <td
+                            v-for="player in PlayerStore.players"
+                            :key="player.id"
+                            :class="getTdClasses(player.id, card.id)"
+                            class="flex flex-row items-center justify-center"
+                        >
+                            <button
+                                class="btn btn-sm btn-square hover:btn-success btn-ghost"
+                                @click="() => upsertRelation(player.id, card.id, true)"
+                            >
+                                <Icon name="md-check"></Icon>
+                            </button>
+                            <button
+                                class="btn btn-sm btn-square hover:btn-error btn-ghost"
+                                @click="() => upsertRelation(player.id, card.id, false)"
+                            >
+                                <Icon name="md-close"></Icon>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
