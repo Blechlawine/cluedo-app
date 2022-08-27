@@ -107,7 +107,6 @@ const upsertRelation = (playerId: string, cardId: string, value: boolean) => {
                 <Icon name="md-fileopen"></Icon>
             </label>
             <div class="divider divider-horizontal"></div>
-            <button class="btn btn-sm">Player has card</button>
             <button class="btn btn-sm">Question</button>
         </div>
         <div class="players flex flex-col p-2 gap-2 border-r-2 border-b-2 border-base-300 overflow-auto">
