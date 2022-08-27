@@ -23,6 +23,7 @@ const saveData = computed(() =>
         JSON.stringify({
             cards: CardStore.cards,
             players: PlayerStore.players,
+            playerCardRelations: PlayerCardRelationStore.playerCardRelations,
         })
     )
 );
@@ -54,6 +55,7 @@ const onPlayerListEditItem = (playerId: string) => {
 const startNewGame = () => {
     PlayerStore.players = [];
     CardStore.cards = [];
+    PlayerCardRelationStore.playerCardRelations = [];
 };
 
 const loadSaveData = (event: Event) => {
@@ -66,6 +68,7 @@ const loadSaveData = (event: Event) => {
             const data = JSON.parse(raw); //TODO: type this
             PlayerStore.players = data.players;
             CardStore.cards = data.cards;
+            PlayerCardRelationStore.playerCardRelations = data.playerCardRelations;
         };
         reader.readAsText(eventTarget.files[0]);
     }
