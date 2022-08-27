@@ -154,7 +154,7 @@ const upsertRelation = (playerId: string, cardId: string, value: boolean) => {
                             v-for="player in PlayerStore.players"
                             :key="player.id"
                             :class="getTdClasses(player.id, card.id)"
-                            class="flex flex-row items-center justify-center"
+                            class="text-center"
                         >
                             <button
                                 class="btn btn-sm btn-square hover:btn-success btn-ghost"
