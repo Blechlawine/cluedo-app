@@ -80,8 +80,7 @@ const getTdClasses = (playerId: string, cardId: string) => {
     }
 };
 
-const upsertRelation = (playerId: string, cardId: string, value: boolean) => {
-    console.log("upsertRelation", playerId, cardId, value);
+const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boolean) => {
     PlayerCardRelationStore.upsert({
         playerId,
         cardId,
@@ -158,13 +157,13 @@ const upsertRelation = (playerId: string, cardId: string, value: boolean) => {
                         >
                             <button
                                 class="btn btn-sm btn-square hover:btn-success btn-ghost"
-                                @click="() => upsertRelation(player.id, card.id, true)"
+                                @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
                             >
                                 <Icon name="md-check"></Icon>
                             </button>
                             <button
                                 class="btn btn-sm btn-square hover:btn-error btn-ghost"
-                                @click="() => upsertRelation(player.id, card.id, false)"
+                                @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
                             >
                                 <Icon name="md-close"></Icon>
                             </button>
