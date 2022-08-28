@@ -5,6 +5,9 @@ interface IState {
 }
 type TGetters = {
     getByID: (state: IState) => (id: string) => CardOutput | undefined;
+    suspects: (state: IState) => CardOutput[];
+    weapons: (state: IState) => CardOutput[];
+    locations: (state: IState) => CardOutput[];
 };
 interface IActions {
     upsert: (card: CardInput) => void;
@@ -17,6 +20,9 @@ const useCards = defineStore<"cards", IState, TGetters, IActions>("cards", {
     persist: true,
     getters: {
         getByID: (state) => (id) => state.cards.find((c) => c.id === id),
+        suspects: (state) => state.cards.filter((c) => c.category === "suspect"),
+        weapons: (state) => state.cards.filter((c) => c.category === "weapon"),
+        locations: (state) => state.cards.filter((c) => c.category === "location"),
     },
     actions: {
         upsert(card) {

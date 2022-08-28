@@ -19,6 +19,15 @@
                             class="input input-bordered w-full max-w-xs"
                         />
                     </div>
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Category</span>
+                        </label>
+                        <select class="select select-bordered" v-model="category">
+                            <option disabled selected>Pick one</option>
+                            <option v-for="category in ['suspect', 'weapon', 'location']" :key="category" :value="category">{{ category }}</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-action">
                     <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">Save</label>
@@ -55,8 +64,10 @@ watch(
     () => {
         if (props.presetValues) {
             name.value = props.presetValues.name;
+            category.value = props.presetValues.category;
         } else {
             name.value = "";
+            category.value = "suspect";
         }
     },
     {
@@ -65,6 +76,7 @@ watch(
 );
 
 const name = ref("");
+const category = ref<CardOutput["category"]>("suspect");
 
 const emit = defineEmits<{
     (e: "close"): void;
@@ -74,12 +86,14 @@ const emit = defineEmits<{
 const closeBtnClick = () => {
     emit("close");
     name.value = "";
+    category.value = "suspect";
 };
 
 const saveBtnClick = () => {
     emit("save", {
         ...props.presetValues,
         name: name.value,
+        category: category.value,
     });
     name.value = "";
     emit("close");

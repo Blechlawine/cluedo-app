@@ -4,6 +4,7 @@ import * as uuid from "uuid";
 export const CardValidator = z.object({
     id: z.string().default(uuid.v4),
     name: z.string(),
+    category: z.enum(["suspect", "weapon", "location"]).default("suspect"),
 });
 export type CardInput = z.input<typeof CardValidator>;
 export type CardOutput = z.output<typeof CardValidator>;
@@ -16,6 +17,19 @@ export const PlayerValidator = z.object({
 export type PlayerInput = z.input<typeof PlayerValidator>;
 export type PlayerOutput = z.output<typeof PlayerValidator>;
 
+export const QuestionValidator = z.object({
+    id: z.string().default(uuid.v4),
+    askingPlayerId: z.string(),
+    answeringPlayerId: z.string().nullable(),
+    playersThatDidntHaveAnythingIds: z.array(z.string()),
+    suspectCardId: z.string(),
+    weaponCardId: z.string(),
+    locationCardId: z.string(),
+    timestamp: z.string().default(() => (new Date()).toISOString()),
+});
+export type QuestionInput = z.input<typeof QuestionValidator>;
+export type QuestionOutput = z.output<typeof QuestionValidator>;
+
 export const PlayerCardRelationValidator = z.object({
     playerId: z.string(),
     cardId: z.string(),
@@ -27,6 +41,7 @@ export type PlayerCardRelationOutput = z.output<typeof PlayerCardRelationValidat
 export const SaveDataValidator = z.object({
     players: z.array(PlayerValidator),
     cards: z.array(CardValidator),
+    questions: z.array(QuestionValidator),
     playerCardRelations: z.array(PlayerCardRelationValidator),
 });
 export type SaveDataInput = z.input<typeof SaveDataValidator>;

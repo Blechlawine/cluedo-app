@@ -3,26 +3,41 @@ import PlayerList from "./components/PlayerList.vue";
 import PlayerModal from "./components/PlayerModal.vue";
 import CardList from "./components/CardList.vue";
 import CardModal from "./components/CardModal.vue";
+import QuestionList from "./components/QuestionList.vue";
+import QuestionModal from "./components/QuestionModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
 import usePlayerCardRelations from "./store/playerCardRelationStore";
-import { CardInput, CardOutput, PlayerInput, PlayerOutput, SaveDataValidator } from "./types/validators";
+import {
+    CardInput,
+    CardOutput,
+    PlayerInput,
+    PlayerOutput,
+    QuestionInput,
+    QuestionOutput,
+    SaveDataValidator,
+} from "./types/validators";
 import { computed, ref } from "vue";
+import useQuestions from "./store/questionStore";
 
 const CardStore = useCards();
 const PlayerStore = usePlayers();
+const QuestionStore = useQuestions();
 const PlayerCardRelationStore = usePlayerCardRelations();
 
 const playerModalOpen = ref(false);
 const cardModalOpen = ref(false);
+const questionModalOpen = ref(false);
 const cardModalPresetValues = ref<CardOutput | null>(null);
 const playerModalPresetValues = ref<PlayerOutput | null>(null);
+const questionModalPresetValues = ref<QuestionOutput | null>(null);
 
 const saveData = computed(() =>
     encodeURIComponent(
         JSON.stringify({
             cards: CardStore.cards,
             players: PlayerStore.players,
+            questions: QuestionStore.questions,
             playerCardRelations: PlayerCardRelationStore.playerCardRelations,
         })
     )
@@ -36,12 +51,20 @@ const onPlayerModalClose = () => {
     playerModalPresetValues.value = null;
 };
 
+const onQuestionModalClose = () => {
+    questionModalPresetValues.value = null;
+};
+
 const onCardModalSave = (data: CardInput) => {
     CardStore.upsert(data);
 };
 
 const onPlayerModalSave = (data: PlayerInput) => {
     PlayerStore.upsert(data);
+};
+
+const onQuestionModalSave = (data: QuestionInput) => {
+    QuestionStore.upsert(data);
 };
 
 const onCardListEditItem = (cardId: string) => {
@@ -52,9 +75,14 @@ const onPlayerListEditItem = (playerId: string) => {
     playerModalPresetValues.value = PlayerStore.getByID(playerId) ?? null;
 };
 
+const onQuestionListEditItem = (questionId: string) => {
+    questionModalPresetValues.value = QuestionStore.getByID(questionId) ?? null;
+}
+
 const startNewGame = () => {
     PlayerStore.players = [];
     CardStore.cards = [];
+    QuestionStore.questions = [];
     PlayerCardRelationStore.playerCardRelations = [];
 };
 
@@ -70,6 +98,7 @@ const loadSaveData = (event: Event) => {
                 const data = parsed.data;
                 PlayerStore.players = data.players;
                 CardStore.cards = data.cards;
+                QuestionStore.questions = data.questions;
                 PlayerCardRelationStore.playerCardRelations = data.playerCardRelations;
             } else {
                 // TODO: show alert "Error parsing save"
@@ -114,7 +143,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 <Icon name="md-fileopen"></Icon>
             </label>
             <div class="divider divider-horizontal"></div>
-            <button class="btn btn-sm">Question</button>
+            <label for="questionModal" class="btn btn-sm modal-button">Question</label>
         </div>
         <div class="players flex flex-col p-2 gap-2 border-r-2 border-b-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky top-0">
@@ -163,23 +192,43 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                             :class="getTdClasses(player.id, card.id)"
                             class="text-center"
                         >
-                            <button
-                                class="btn btn-sm btn-square hover:btn-success btn-ghost"
-                                @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
-                            >
-                                <Icon name="md-check"></Icon>
-                            </button>
-                            <button
-                                class="btn btn-sm btn-square hover:btn-error btn-ghost"
-                                @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
-                            >
-                                <Icon name="md-close"></Icon>
-                            </button>
+                            <div class="flex flex-col">
+                                <div>
+                                    <button
+                                        class="btn btn-sm btn-square hover:btn-success btn-ghost"
+                                        @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
+                                    >
+                                        <Icon name="md-check"></Icon>
+                                    </button>
+                                    <button
+                                        class="btn btn-sm btn-square hover:btn-error btn-ghost"
+                                        @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
+                                    >
+                                        <Icon name="md-close"></Icon>
+                                    </button>
+                                </div>
+                                <div>
+                                    <!-- Other details here -->
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </main>
+        <div class="questions flex flex-col p-2 gap-2 border-l-2 border-base-300 overflow-auto">
+            <div class="flex flex-row justify-between items-center sticky top-0">
+                <h1>Questions</h1>
+            </div>
+            <QuestionList label="questionModal" @edit-item="onQuestionListEditItem"></QuestionList>
+            <QuestionModal
+                :open="questionModalOpen"
+                label="questionModal"
+                @save="onQuestionModalSave"
+                @close="onQuestionModalClose"
+                :preset-values="questionModalPresetValues"
+            ></QuestionModal>
+        </div>
         <teleport to="body">
             <input type="checkbox" id="newGameModal" class="modal-toggle" />
             <div class="modal">
@@ -201,12 +250,12 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
 </template>
 <style>
 .app {
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 2fr 4fr 4fr;
     grid-template-rows: min-content 3fr 4fr;
     grid-template-areas:
-        "tools tools"
-        "players main"
-        "cards main";
+        "tools tools tools"
+        "players main questions"
+        "cards main questions";
 }
 
 .players {
@@ -215,6 +264,10 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
 
 .cards {
     grid-area: cards;
+}
+
+.questions {
+    grid-area: questions;
 }
 
 main {

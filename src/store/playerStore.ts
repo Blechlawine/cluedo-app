@@ -23,7 +23,7 @@ const usePlayers = defineStore<"players", IState, TGetters, IActions>("players",
             const parsed = PlayerValidator.safeParse(player);
             if (parsed.success) {
                 const data = parsed.data;
-                let temp = this.players.find((c) => c.id === data.id);
+                let temp = this.players.find((p) => p.id === data.id);
                 if (temp) {
                     Object.assign(temp, data);
                 } else {
