@@ -77,7 +77,7 @@ const onPlayerListEditItem = (playerId: string) => {
 
 const onQuestionListEditItem = (questionId: string) => {
     questionModalPresetValues.value = QuestionStore.getByID(questionId) ?? null;
-}
+};
 
 const startNewGame = () => {
     PlayerStore.players = [];
@@ -143,12 +143,18 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 <Icon name="md-fileopen"></Icon>
             </label>
             <div class="divider divider-horizontal"></div>
-            <label for="questionModal" class="btn btn-sm modal-button">Question</label>
+            <label for="questionModal" class="btn btn-sm modal-button flex gap-1 pl-2">
+                <Icon name="md-add"></Icon>
+                Question
+            </label>
         </div>
         <div class="players flex flex-col border-r-2 border-b-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
                 <h1>Players</h1>
-                <label for="playerModal" class="btn btn-sm modal-button">New Player</label>
+                <label for="playerModal" class="btn btn-sm modal-button flex gap-1 pl-2">
+                    <Icon name="md-add"></Icon>
+                    Player
+                </label>
             </div>
             <PlayerModal
                 :open="playerModalOpen"
@@ -162,7 +168,10 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
         <div class="cards flex flex-col border-r-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
                 <h1>Cards</h1>
-                <label for="cardModal" class="btn btn-sm modal-button">New Card</label>
+                <label for="cardModal" class="btn btn-sm modal-button flex gap-1 pl-2">
+                    <Icon name="md-add"></Icon>
+                    Card
+                </label>
             </div>
             <CardModal
                 :open="cardModalOpen"
