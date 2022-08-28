@@ -2,10 +2,10 @@
     <table class="table table-compact w-full">
         <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th class="w-min"></th>
+                <th class="w-full">Name</th>
+                <th class="w-min">Edit</th>
+                <th class="w-min">Delete</th>
             </tr>
         </thead>
         <Draggable tag="tbody" :list="CardStore.cards" handle=".drag-handle" ghost-class="opacity-50">

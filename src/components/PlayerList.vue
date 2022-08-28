@@ -2,11 +2,11 @@
     <table class="table table-compact w-full">
         <thead>
             <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Card-amount</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th class="w-min"></th>
+                <th class="w-1/2">Name</th>
+                <th class="w-1/2">Cards</th>
+                <th class="w-min">Edit</th>
+                <th class="w-min">Delete</th>
             </tr>
         </thead>
         <Draggable tag="tbody" handle=".drag-handle" :list="PlayerStore.players" ghost-class="opacity-50">
