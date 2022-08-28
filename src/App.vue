@@ -145,8 +145,8 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             <div class="divider divider-horizontal"></div>
             <label for="questionModal" class="btn btn-sm modal-button">Question</label>
         </div>
-        <div class="players flex flex-col p-2 gap-2 border-r-2 border-b-2 border-base-300 overflow-auto">
-            <div class="flex flex-row justify-between items-center sticky top-0">
+        <div class="players flex flex-col border-r-2 border-b-2 border-base-300 overflow-auto">
+            <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
                 <h1>Players</h1>
                 <label for="playerModal" class="btn btn-sm modal-button">New Player</label>
             </div>
@@ -159,8 +159,8 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             ></PlayerModal>
             <PlayerList label="playerModal" @edit-item="onPlayerListEditItem"></PlayerList>
         </div>
-        <div class="cards flex flex-col p-2 gap-2 border-r-2 border-base-300 overflow-auto">
-            <div class="flex flex-row justify-between items-center sticky top-0">
+        <div class="cards flex flex-col border-r-2 border-base-300 overflow-auto">
+            <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
                 <h1>Cards</h1>
                 <label for="cardModal" class="btn btn-sm modal-button">New Card</label>
             </div>
@@ -216,8 +216,8 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 </tbody>
             </table>
         </main>
-        <div class="questions flex flex-col p-2 gap-2 border-l-2 border-base-300 overflow-auto">
-            <div class="flex flex-row justify-between items-center sticky top-0">
+        <div class="questions flex flex-col border-l-2 border-base-300 overflow-auto">
+            <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
                 <h1>Questions</h1>
             </div>
             <QuestionList label="questionModal" @edit-item="onQuestionListEditItem"></QuestionList>
