@@ -2,13 +2,17 @@
     <table class="table table-compact w-full">
         <thead>
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
         </thead>
-        <Draggable tag="tbody" :list="CardStore.cards" ghost-class="opacity-50">
-            <tr v-for="card in CardStore.cards" class="hover" :key="card.id">
+        <Draggable tag="tbody" :list="CardStore.cards" handle=".drag-handle" ghost-class="opacity-50">
+            <tr v-for="card in CardStore.cards" :key="card.id" class="hover">
+                <td class="drag-handle">
+                    <Icon name="md-dragindicator"></Icon>
+                </td>
                 <td>{{ card.name }}</td>
                 <td>
                     <label
