@@ -6,7 +6,7 @@ import CardModal from "./components/CardModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
 import usePlayerCardRelations from "./store/playerCardRelationStore";
-import { CardInput, CardOutput, PlayerInput, PlayerOutput } from "./types/validators";
+import { CardInput, CardOutput, PlayerInput, PlayerOutput, SaveDataValidator } from "./types/validators";
 import { computed, ref } from "vue";
 
 const CardStore = useCards();
@@ -65,10 +65,15 @@ const loadSaveData = (event: Event) => {
         let reader = new FileReader();
         reader.onload = (e) => {
             const raw = e.target?.result as string;
-            const data = JSON.parse(raw); //TODO: type this
-            PlayerStore.players = data.players;
-            CardStore.cards = data.cards;
-            PlayerCardRelationStore.playerCardRelations = data.playerCardRelations;
+            const parsed = SaveDataValidator.safeParse(JSON.parse(raw));
+            if (parsed.success) {
+                const data = parsed.data;
+                PlayerStore.players = data.players;
+                CardStore.cards = data.cards;
+                PlayerCardRelationStore.playerCardRelations = data.playerCardRelations;
+            } else {
+                // TODO: show alert "Error parsing save"
+            }
         };
         reader.readAsText(eventTarget.files[0]);
     }
