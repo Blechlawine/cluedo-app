@@ -1,8 +1,8 @@
 <template>
-    <table class="table table-compact w-full">
+    <table class="table table-compact w-full table-fixed">
         <thead>
             <tr>
-                <th class="w-min"></th>
+                <th class="w-6"></th>
                 <th class="w-1/2">Name</th>
                 <th class="w-1/2">Cards</th>
                 <th class="w-min">Edit</th>
@@ -14,7 +14,7 @@
                 <td class="drag-handle">
                     <Icon name="md-dragindicator"></Icon>
                 </td>
-                <td>{{ player.name }}</td>
+                <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ player.name }}</td>
                 <td>{{ player.cardAmount }}</td>
                 <td>
                     <label

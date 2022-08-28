@@ -1,15 +1,15 @@
 <template>
-    <table class="table table-compact w-full">
+    <table class="table table-compact w-full table-fixed">
         <thead>
             <tr>
-                <th>Timestamp</th>
-                <th>Asking</th>
-                <th>Answering</th>
-                <th>Suspect</th>
-                <th>Weapon</th>
-                <th>Location</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th class="">Timestamp</th>
+                <th class="">Asking</th>
+                <th class="">Answering</th>
+                <th class="w-min">Suspect</th>
+                <th class="w-min">Weapon</th>
+                <th class="w-min">Location</th>
+                <th class="w-min">Edit</th>
+                <th class="w-min">Delete</th>
             </tr>
         </thead>
         <tr v-for="question in QuestionStore.questions" class="hover" :key="question.id">

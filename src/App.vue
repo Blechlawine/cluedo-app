@@ -183,11 +183,17 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             <CardList label="cardModal" @edit-item="onCardListEditItem"></CardList>
         </div>
         <main class="p-2">
-            <table class="table table-compact">
+            <table class="table table-compact w-full table-fixed">
                 <thead>
                     <tr>
                         <th>Cards</th>
-                        <th v-for="player in PlayerStore.players" :key="player.id">{{ player.name }}</th>
+                        <th
+                            :class="` text-ellipsis overflow-hidden whitespace-nowrap`"
+                            v-for="player in PlayerStore.players"
+                            :key="player.id"
+                        >
+                            {{ player.name }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

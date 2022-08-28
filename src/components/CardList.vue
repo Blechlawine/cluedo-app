@@ -1,8 +1,8 @@
 <template>
-    <table class="table table-compact w-full">
+    <table class="table table-compact w-full table-fixed">
         <thead>
             <tr>
-                <th class="w-min"></th>
+                <th class="w-6"></th>
                 <th class="w-full">Name</th>
                 <th class="w-min">Edit</th>
                 <th class="w-min">Delete</th>
@@ -13,7 +13,7 @@
                 <td class="drag-handle">
                     <Icon name="md-dragindicator"></Icon>
                 </td>
-                <td>{{ card.name }}</td>
+                <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ card.name }}</td>
                 <td>
                     <label
                         :for="props.label"

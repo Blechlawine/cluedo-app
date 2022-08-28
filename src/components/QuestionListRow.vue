@@ -1,13 +1,14 @@
 <template>
-    <td>{{ question.timestamp }}</td>
-    <td>{{ askingPlayer?.name }}</td>
-    <td>{{ answeringPlayer?.name }}</td>
+    <td>{{ day(question.timestamp).format("YYYY.MM.DD: HH:mm") }}</td>
+    <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ askingPlayer?.name }}</td>
+    <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ answeringPlayer?.name }}</td>
     <td>{{ suspectCard?.name }}</td>
     <td>{{ weaponCard?.name }}</td>
     <td>{{ locationCard?.name }}</td>
 </template>
 <script setup lang="ts">
 import { computed, PropType } from "vue";
+import day from "dayjs";
 import useCards from "../store/cardStore";
 import usePlayers from "../store/playerStore";
 import { QuestionOutput } from "../types/validators";
