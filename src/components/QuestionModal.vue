@@ -148,11 +148,24 @@ const saveBtnClick = (event: Event) => {
         event.preventDefault();
         // TODO: Show alert
     } else {
+        const askingPlayerIndex = PlayerStore.players.findIndex((p) => p.id === askingPlayerId.value);
+        const answeringPlayerIndex = PlayerStore.players.findIndex((p) => p.id === answeringPlayerId.value);
+        let emptyPlayers = [];
+        // Adapted from https://stackoverflow.com/a/61928036
+        let end = answeringPlayerIndex;
+        let start = askingPlayerIndex + 1;
+        if (answeringPlayerIndex < askingPlayerIndex) {
+            end += PlayerStore.players.length;
+        }
+        for (let i = start; i < end; i++) {
+            emptyPlayers.push(i % PlayerStore.players.length);
+        }
+        emptyPlayers = emptyPlayers.map((index) => PlayerStore.players[index].id);
         emit("save", {
             ...props.presetValues,
             askingPlayerId: askingPlayerId.value,
             answeringPlayerId: answeringPlayerId.value ?? null,
-            playersThatDidntHaveAnythingIds: [], // TODO
+            playersThatDidntHaveAnythingIds: emptyPlayers, // TODO
             suspectCardId: suspectCardId.value,
             weaponCardId: weaponCardId.value,
             locationCardId: locationCardId.value,
