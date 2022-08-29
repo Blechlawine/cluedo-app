@@ -112,8 +112,10 @@ const getTdClasses = (playerId: string, cardId: string) => {
     const relation = PlayerCardRelationStore.getByPlayerIdAndCardId(playerId, cardId);
     if (relation && relation.value) {
         return "bg-success text-success-content";
-    } else {
+    } else if (relation && !relation.value) {
         return "bg-error text-error-content";
+    } else {
+        return "bg-warning text-warning-content";
     }
 };
 
