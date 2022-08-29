@@ -207,9 +207,24 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                             v-for="player in PlayerStore.players"
                             :key="player.id"
                             :class="getTdClasses(player.id, card.id)"
-                            class="text-center"
+                            class="text-center relative"
                         >
                             <div class="flex flex-col">
+                                <div class="absolute top-0 left-0 w-full flex flex-row justify-start">
+                                    <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
+                                        <span
+                                            class="text-xs"
+                                            v-if="
+                                                question.playersThatDidntHaveAnythingIds.includes(player.id) &&
+                                                (question.suspectCardId === card.id ||
+                                                    question.weaponCardId === card.id ||
+                                                    question.locationCardId === card.id)
+                                            "
+                                        >
+                                            {{ `Q${index + 1}` }}
+                                        </span>
+                                    </template>
+                                </div>
                                 <div>
                                     <button
                                         class="btn btn-sm btn-square hover:btn-success btn-ghost"
@@ -224,8 +239,23 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                         <Icon name="md-close"></Icon>
                                     </button>
                                 </div>
-                                <div>
-                                    <!-- Other details here -->
+                                <div class="absolute bottom-0 right-0 w-full flex flex-row justify-end">
+                                    <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
+                                        <span
+                                            v-if="
+                                                question.answeringPlayerId === player.id &&
+                                                (question.suspectCardId === card.id ||
+                                                    question.weaponCardId === card.id ||
+                                                    question.locationCardId === card.id)
+                                            "
+                                        >
+                                            {{
+                                                PlayerStore.players
+                                                    .find((p) => p.id == question.askingPlayerId)
+                                                    ?.name.substring(0, 1)
+                                            }}
+                                        </span>
+                                    </template>
                                 </div>
                             </div>
                         </td>
