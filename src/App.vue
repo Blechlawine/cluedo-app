@@ -19,11 +19,13 @@ import {
 } from "./types/validators";
 import { computed, ref } from "vue";
 import useQuestions from "./store/questionStore";
+import useLanguages from "./store/languageStore";
 
 const CardStore = useCards();
 const PlayerStore = usePlayers();
 const QuestionStore = useQuestions();
 const PlayerCardRelationStore = usePlayerCardRelations();
+const LanguageStore = useLanguages();
 
 const playerModalOpen = ref(false);
 const cardModalOpen = ref(false);
@@ -144,18 +146,25 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             <label for="saveDataInput" class="btn btn-sm btn-square text-warning hover:btn-warning">
                 <Icon name="md-fileopen"></Icon>
             </label>
+            <div class="dropdown">
+                <label tabindex="0" class="btn btn-sm">{{ $t("language") }}</label>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><a @click="LanguageStore.locale = 'en'">English</a></li>
+                    <li><a @click="LanguageStore.locale = 'de'">Deutsch</a></li>
+                </ul>
+            </div>
             <div class="divider divider-horizontal"></div>
             <label for="questionModal" class="btn btn-sm modal-button flex gap-1 pl-2">
                 <Icon name="md-add"></Icon>
-                Question
+                {{ $t("question") }}
             </label>
         </div>
         <div class="players flex flex-col border-r-2 border-b-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
-                <h1>Players</h1>
+                <h1>{{ $t("players") }}</h1>
                 <label for="playerModal" class="btn btn-sm modal-button flex gap-1 pl-2">
                     <Icon name="md-add"></Icon>
-                    Player
+                    {{ $t("player") }}
                 </label>
             </div>
             <PlayerModal
@@ -169,10 +178,10 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
         </div>
         <div class="cards flex flex-col border-r-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
-                <h1>Cards</h1>
+                <h1>{{ $t("cards") }}</h1>
                 <label for="cardModal" class="btn btn-sm modal-button flex gap-1 pl-2">
                     <Icon name="md-add"></Icon>
-                    Card
+                    {{ $t("card") }}
                 </label>
             </div>
             <CardModal
@@ -188,7 +197,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             <table class="table table-compact w-full table-fixed">
                 <thead>
                     <tr>
-                        <th>Cards ({{ CardStore.cards.length }})</th>
+                        <th>{{ $t("cards") }} ({{ CardStore.cards.length }})</th>
                         <th
                             :class="` text-ellipsis overflow-hidden whitespace-nowrap`"
                             v-for="player in PlayerStore.players"
@@ -214,7 +223,12 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
                                             class="text-xs tooltip hover:z-50"
-                                            :data-tip="`${player.name} doesn't have this card: Question ${index + 1}`"
+                                            :data-tip="
+                                                $t('does-not-have-this-card-with-question', {
+                                                    player: player.name,
+                                                    questionNumber: index + 1,
+                                                })
+                                            "
                                             v-if="
                                                 question.playersThatDidntHaveAnythingIds.includes(player.id) &&
                                                 (question.suspectCardId === card.id ||
@@ -229,14 +243,14 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                 <div>
                                     <button
                                         class="btn btn-sm btn-square hover:btn-success btn-ghost tooltip hover:z-50 normal-case"
-                                        data-tip="Has this card"
+                                        :data-tip="$t('has-this-card')"
                                         @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
                                     >
                                         <Icon name="md-check"></Icon>
                                     </button>
                                     <button
                                         class="btn btn-sm btn-square hover:btn-error btn-ghost tooltip hover:z-50 normal-case"
-                                        data-tip="Does not have this card"
+                                        :data-tip="$t('does-not-have-this-card')"
                                         @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
                                     >
                                         <Icon name="md-close"></Icon>
@@ -246,9 +260,15 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
                                             class="tooltip text-xs hover:z-20"
-                                            :data-tip="`${player.name} maybe showed this to ${
-                                                PlayerStore.players.find((p) => p.id == question.askingPlayerId)?.name
-                                            }: question ${index + 1}`"
+                                            :data-tip="
+                                                $t('showed-this-card-to', {
+                                                    player: player.name,
+                                                    otherPlayer: PlayerStore.players.find(
+                                                        (p) => p.id == question.askingPlayerId
+                                                    )?.name,
+                                                    questionNumber: index + 1,
+                                                })
+                                            "
                                             v-if="
                                                 question.answeringPlayerId === player.id &&
                                                 (question.suspectCardId === card.id ||
@@ -272,7 +292,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
         </main>
         <div class="questions flex flex-col border-l-2 border-base-300 overflow-auto">
             <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
-                <h1>Questions</h1>
+                <h1>{{ $t("questions") }}</h1>
             </div>
             <QuestionList label="questionModal" @edit-item="onQuestionListEditItem"></QuestionList>
             <QuestionModal
@@ -290,11 +310,13 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                     <label for="newGameModal" class="btn btn-sm btn-circle absolute right-2 top-2">
                         <Icon name="md-close"></Icon>
                     </label>
-                    <h3 class="text-lg font-bold">Start new game</h3>
-                    <p>This will delete everything not saved! Are you sure you want to continue?</p>
+                    <h3 class="text-lg font-bold">{{ $t("start-new-game") }}</h3>
+                    <p>{{ $t("warning-delete-everything") }}</p>
                     <div class="modal-action">
-                        <label for="newGameModal" class="btn btn-sm btn-ghost">Cancel</label>
-                        <label for="newGameModal" class="btn btn-sm btn-primary" @click="startNewGame">Continue</label>
+                        <label for="newGameModal" class="btn btn-sm btn-ghost">{{ $t("cancel") }}</label>
+                        <label for="newGameModal" class="btn btn-sm btn-primary" @click="startNewGame">{{
+                            $t("continue")
+                        }}</label>
                     </div>
                 </div>
             </div>

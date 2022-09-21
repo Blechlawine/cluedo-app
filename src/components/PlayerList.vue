@@ -3,10 +3,10 @@
         <thead>
             <tr>
                 <th class="w-6"></th>
-                <th class="w-1/2">Name</th>
-                <th class="w-1/2">Cards</th>
-                <th class="w-min">Edit</th>
-                <th class="w-min">Delete</th>
+                <th class="w-1/2">{{ $t('name') }}</th>
+                <th class="w-1/2">{{ $t('cards') }}</th>
+                <th class="w-min">{{ $t('edit') }}</th>
+                <th class="w-min">{{ $t('delete') }}</th>
             </tr>
         </thead>
         <Draggable tag="tbody" handle=".drag-handle" :list="PlayerStore.players" ghost-class="opacity-50">

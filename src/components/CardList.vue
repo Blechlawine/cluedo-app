@@ -3,9 +3,9 @@
         <thead>
             <tr>
                 <th class="w-6"></th>
-                <th class="w-full">Name</th>
-                <th class="w-min">Edit</th>
-                <th class="w-min">Delete</th>
+                <th class="w-full">{{ $t('name') }}</th>
+                <th class="w-min">{{ $t('edit') }}</th>
+                <th class="w-min">{{ $t('delete') }}</th>
             </tr>
         </thead>
         <Draggable tag="tbody" :list="CardStore.cards" handle=".drag-handle" ghost-class="opacity-50">

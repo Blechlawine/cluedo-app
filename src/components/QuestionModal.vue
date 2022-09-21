@@ -10,10 +10,10 @@
                 <div class="content">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Asking player</span>
+                            <span class="label-text">{{ $t('asking-player') }}</span>
                         </label>
                         <select class="select select-bordered" v-model="askingPlayerId">
-                            <option disabled selected :value="null">Pick one</option>
+                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
                             <option v-for="player in PlayerStore.players" :key="player.id" :value="player.id">
                                 {{ player.name }}
                             </option>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Answering player</span>
+                            <span class="label-text">{{ $t('answering-player') }}</span>
                         </label>
                         <select class="select select-bordered" v-model="answeringPlayerId">
                             <option disabled selected :value="null">Pick one</option>
@@ -33,10 +33,10 @@
                     <h4>Cards</h4>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Suspect card</span>
+                            <span class="label-text">{{ $t('suspect-card') }}</span>
                         </label>
                         <select class="select select-bordered" v-model="suspectCardId">
-                            <option disabled selected :value="null">Pick one</option>
+                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
                             <option v-for="card in CardStore.suspects" :key="card.id" :value="card.id">
                                 {{ card.name }}
                             </option>
@@ -44,10 +44,10 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Weapon card</span>
+                            <span class="label-text">{{ $t('weapon-card') }}</span>
                         </label>
                         <select class="select select-bordered" v-model="weaponCardId">
-                            <option disabled selected :value="null">Pick one</option>
+                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
                             <option v-for="card in CardStore.weapons" :key="card.id" :value="card.id">
                                 {{ card.name }}
                             </option>
@@ -55,10 +55,10 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Location card</span>
+                            <span class="label-text">{{ $t('location-card') }}</span>
                         </label>
                         <select class="select select-bordered" v-model="locationCardId">
-                            <option disabled selected :value="null">Pick one</option>
+                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
                             <option v-for="card in CardStore.locations" :key="card.id" :value="card.id">
                                 {{ card.name }}
                             </option>
@@ -66,8 +66,8 @@
                     </div>
                 </div>
                 <div class="modal-action">
-                    <label :for="props.label" class="btn btn-sm btn-ghost" @click="closeBtnClick">Cancel</label>
-                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">Save</label>
+                    <label :for="props.label" class="btn btn-sm btn-ghost" @click="closeBtnClick">{{ $t('cancel') }}</label>
+                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{ $t('save') }}</label>
                 </div>
             </div>
         </div>

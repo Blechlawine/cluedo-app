@@ -1,10 +1,15 @@
 <template>
-    <td>{{ day(question.timestamp).format("YYYY.MM.DD: HH:mm") }}</td>
+    <td class="w-max">
+        {{ timestamp.format("YYYY.MM.DD") }} <br />
+        {{ timestamp.format("HH:mm") }}
+    </td>
     <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ askingPlayer?.name }}</td>
     <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ answeringPlayer?.name }}</td>
-    <td>{{ suspectCard?.name }}</td>
-    <td>{{ weaponCard?.name }}</td>
-    <td>{{ locationCard?.name }}</td>
+    <td class="w-min">
+        {{ $t("suspect") }}: <b>{{ suspectCard?.name }}</b> <br />
+        {{ $t("weapon") }}: <b>{{ weaponCard?.name }}</b> <br />
+        {{ $t("location") }}: <b>{{ locationCard?.name }}</b>
+    </td>
 </template>
 <script setup lang="ts">
 import { computed, PropType } from "vue";
@@ -25,6 +30,7 @@ const props = defineProps({
 
 const askingPlayer = computed(() => PlayerStore.players.find((p) => p.id === props.question.askingPlayerId));
 const answeringPlayer = computed(() => PlayerStore.players.find((p) => p.id === props.question.answeringPlayerId));
+const timestamp = computed(() => day(props.question.timestamp));
 
 const suspectCard = computed(() => CardStore.cards.find((c) => c.id === props.question.suspectCardId));
 const weaponCard = computed(() => CardStore.cards.find((c) => c.id === props.question.weaponCardId));

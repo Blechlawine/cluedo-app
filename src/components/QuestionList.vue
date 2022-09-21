@@ -2,14 +2,12 @@
     <table class="table table-compact w-full table-fixed">
         <thead>
             <tr>
-                <th class="">Timestamp</th>
-                <th class="">Asking</th>
-                <th class="">Answering</th>
-                <th class="w-min">Suspect</th>
-                <th class="w-min">Weapon</th>
-                <th class="w-min">Location</th>
-                <th class="w-min">Edit</th>
-                <th class="w-min">Delete</th>
+                <th class="w-max">{{ $t("timestamp") }}</th>
+                <th class="">{{ $t("asking") }}</th>
+                <th class="">{{ $t("answering") }}</th>
+                <th class="w-min">{{ $t("suspect") }} + {{ $t("weapon") }} + {{ $t("location") }}</th>
+                <th class="">{{ $t("edit") }}</th>
+                <th class="">{{ $t("delete") }}</th>
             </tr>
         </thead>
         <tr v-for="question in QuestionStore.questions" class="hover" :key="question.id">

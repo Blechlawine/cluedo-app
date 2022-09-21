@@ -6,31 +6,31 @@
                 <label :for="props.label" class="btn btn-sm btn-circle absolute right-2 top-2" @click="closeBtnClick">
                     <Icon name="md-close"></Icon>
                 </label>
-                <h3 class="text-lg font-bold">{{ props.title }}</h3>
+                <h3 class="text-lg font-bold">{{ props.title ?? $t("create-new-card") }}</h3>
                 <div class="">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Name</span>
+                            <span class="label-text">{{ $t('name') }}</span>
                         </label>
                         <input
                             type="text"
                             v-model="name"
-                            placeholder="Type here"
+                            :placeholder="$t('type-here')"
                             class="input input-bordered w-full max-w-xs"
                         />
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Category</span>
+                            <span class="label-text">{{ $t('category') }}</span>
                         </label>
                         <select class="select select-bordered" v-model="category">
-                            <option disabled selected>Pick one</option>
+                            <option disabled selected>{{ $t('pick-one') }}</option>
                             <option v-for="category in ['suspect', 'weapon', 'location']" :key="category" :value="category">{{ category }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-action">
-                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">Save</label>
+                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{ $t('save') }}</label>
                 </div>
             </div>
         </div>
@@ -51,7 +51,6 @@ const props = defineProps({
     },
     title: {
         type: String,
-        default: "Create new card",
     },
     presetValues: {
         type: Object as PropType<null | CardOutput>,

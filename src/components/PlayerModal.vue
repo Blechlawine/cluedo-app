@@ -6,11 +6,11 @@
                 <label :for="props.label" class="btn btn-sm btn-circle absolute right-2 top-2" @click="closeBtnClick">
                     <Icon name="md-close"></Icon>
                 </label>
-                <h3 class="text-lg font-bold">{{ props.title }}</h3>
+                <h3 class="text-lg font-bold">{{ props.title ?? $t("create-new-player") }}</h3>
                 <div class="">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Name</span>
+                            <span class="label-text">{{ $t("name") }}</span>
                         </label>
                         <input
                             type="text"
@@ -21,12 +21,12 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">Amount of cards</span>
+                            <span class="label-text">{{ $t("amount-of-cards") }}</span>
                         </label>
                         <input
                             type="number"
                             v-model="cardAmount"
-                            placeholder="Type here"
+                            :placeholder="$t('type-here')"
                             class="input input-bordered w-full max-w-xs"
                         />
                     </div>
@@ -53,7 +53,6 @@ const props = defineProps({
     },
     title: {
         type: String,
-        default: "Create new player",
     },
     presetValues: {
         type: Object as PropType<PlayerOutput | null>,
