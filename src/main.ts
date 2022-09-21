@@ -18,8 +18,9 @@ import {
     MdCheck,
     MdDragindicator,
     MdAdd,
+    MdMenu,
 } from "oh-vue-icons/icons";
-addIcons(MdClose, MdEdit, MdDelete, MdSave, MdNoteadd, MdFileopen, MdCheck, MdDragindicator, MdAdd);
+addIcons(MdClose, MdMenu, MdEdit, MdDelete, MdSave, MdNoteadd, MdFileopen, MdCheck, MdDragindicator, MdAdd);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
