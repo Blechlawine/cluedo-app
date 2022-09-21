@@ -246,9 +246,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
                                             class="tooltip text-xs hover:z-20"
-                                            :data-tip="`${player.name} showed this card to ${
+                                            :data-tip="`${player.name} maybe showed this to ${
                                                 PlayerStore.players.find((p) => p.id == question.askingPlayerId)?.name
-                                            } in question ${index + 1}`"
+                                            }: question ${index + 1}`"
                                             v-if="
                                                 question.answeringPlayerId === player.id &&
                                                 (question.suspectCardId === card.id ||
