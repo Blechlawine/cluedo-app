@@ -15,7 +15,7 @@
                         <input
                             type="text"
                             v-model="name"
-                            placeholder="Type here"
+                            :placeholder="$t('type-here')"
                             class="input input-bordered w-full max-w-xs"
                         />
                     </div>

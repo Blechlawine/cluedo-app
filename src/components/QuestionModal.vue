@@ -6,14 +6,14 @@
                 <label :for="props.label" class="btn btn-sm btn-circle absolute right-2 top-2" @click="closeBtnClick">
                     <Icon name="md-close"></Icon>
                 </label>
-                <h3 class="text-lg font-bold">{{ props.title }}</h3>
+                <h3 class="text-lg font-bold">{{ props.title ?? $t('create-new-question') }}</h3>
                 <div class="content">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('asking-player') }}</span>
+                            <span class="label-text">{{ $t("asking-player") }}</span>
                         </label>
                         <select class="select select-bordered" v-model="askingPlayerId">
-                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
+                            <option disabled selected :value="null">{{ $t("pick-one-player") }}</option>
                             <option v-for="player in PlayerStore.players" :key="player.id" :value="player.id">
                                 {{ player.name }}
                             </option>
@@ -21,22 +21,22 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('answering-player') }}</span>
+                            <span class="label-text">{{ $t("answering-player") }}</span>
                         </label>
                         <select class="select select-bordered" v-model="answeringPlayerId">
-                            <option disabled selected :value="null">Pick one</option>
+                            <option disabled selected :value="null">{{ $t("pick-one-player") }}</option>
                             <option v-for="player in PlayerStore.players" :key="player.id" :value="player.id">
                                 {{ player.name }}
                             </option>
                         </select>
                     </div>
-                    <h4>Cards</h4>
+                    <h4>{{ $t("cards") }}</h4>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('suspect-card') }}</span>
+                            <span class="label-text">{{ $t("suspect-card") }}</span>
                         </label>
                         <select class="select select-bordered" v-model="suspectCardId">
-                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
+                            <option disabled selected :value="null">{{ $t("pick-one-card") }}</option>
                             <option v-for="card in CardStore.suspects" :key="card.id" :value="card.id">
                                 {{ card.name }}
                             </option>
@@ -44,10 +44,10 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('weapon-card') }}</span>
+                            <span class="label-text">{{ $t("weapon-card") }}</span>
                         </label>
                         <select class="select select-bordered" v-model="weaponCardId">
-                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
+                            <option disabled selected :value="null">{{ $t("pick-one-card") }}</option>
                             <option v-for="card in CardStore.weapons" :key="card.id" :value="card.id">
                                 {{ card.name }}
                             </option>
@@ -55,10 +55,10 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('location-card') }}</span>
+                            <span class="label-text">{{ $t("location-card") }}</span>
                         </label>
                         <select class="select select-bordered" v-model="locationCardId">
-                            <option disabled selected :value="null">{{ $t('pick-one') }}</option>
+                            <option disabled selected :value="null">{{ $t("pick-one-card") }}</option>
                             <option v-for="card in CardStore.locations" :key="card.id" :value="card.id">
                                 {{ card.name }}
                             </option>
@@ -66,8 +66,12 @@
                     </div>
                 </div>
                 <div class="modal-action">
-                    <label :for="props.label" class="btn btn-sm btn-ghost" @click="closeBtnClick">{{ $t('cancel') }}</label>
-                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{ $t('save') }}</label>
+                    <label :for="props.label" class="btn btn-sm btn-ghost" @click="closeBtnClick">{{
+                        $t("cancel")
+                    }}</label>
+                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{
+                        $t("save")
+                    }}</label>
                 </div>
             </div>
         </div>
@@ -93,7 +97,6 @@ const props = defineProps({
     },
     title: {
         type: String,
-        default: "Create new question",
     },
     presetValues: {
         type: Object as PropType<QuestionOutput | null>,
