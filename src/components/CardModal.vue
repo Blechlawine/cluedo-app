@@ -10,7 +10,7 @@
                 <div class="">
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('name') }}</span>
+                            <span class="label-text">{{ $t("name") }}</span>
                         </label>
                         <input
                             type="text"
@@ -21,16 +21,24 @@
                     </div>
                     <div class="form-control w-full max-w-xs">
                         <label class="label">
-                            <span class="label-text">{{ $t('category') }}</span>
+                            <span class="label-text">{{ $t("category") }}</span>
                         </label>
                         <select class="select select-bordered" v-model="category">
-                            <option disabled selected>{{ $t('pick-one') }}</option>
-                            <option v-for="category in ['suspect', 'weapon', 'location']" :key="category" :value="category">{{ category }}</option>
+                            <option disabled selected>{{ $t("pick-one") }}</option>
+                            <option
+                                v-for="category in ['suspect', 'weapon', 'location']"
+                                :key="category"
+                                :value="category"
+                            >
+                                {{ $t(category) }}
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="modal-action">
-                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{ $t('save') }}</label>
+                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{
+                        $t("save")
+                    }}</label>
                 </div>
             </div>
         </div>
