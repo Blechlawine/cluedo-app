@@ -188,13 +188,13 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             <table class="table table-compact w-full table-fixed">
                 <thead>
                     <tr>
-                        <th>Cards</th>
+                        <th>Cards ({{ CardStore.cards.length }})</th>
                         <th
                             :class="` text-ellipsis overflow-hidden whitespace-nowrap`"
                             v-for="player in PlayerStore.players"
                             :key="player.id"
                         >
-                            {{ player.name }}
+                            {{ player.name }} ({{ player.cardAmount }})
                         </th>
                     </tr>
                 </thead>
@@ -244,9 +244,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
                                             class="tooltip text-xs hover:z-20"
-                                            :data-tip="`Showed this card to ${PlayerStore.players.find(
-                                                (p) => p.id == question.askingPlayerId
-                                            )?.name} in question ${index + 1}`"
+                                            :data-tip="`Showed this card to ${
+                                                PlayerStore.players.find((p) => p.id == question.askingPlayerId)?.name
+                                            } in question ${index + 1}`"
                                             v-if="
                                                 question.answeringPlayerId === player.id &&
                                                 (question.suspectCardId === card.id ||
