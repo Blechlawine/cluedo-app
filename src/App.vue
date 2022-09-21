@@ -214,7 +214,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
                                             class="text-xs tooltip hover:z-50"
-                                            :data-tip="`Didn't have this card in Question ${index + 1}`"
+                                            :data-tip="`${player.name} doesn't have this card: Question ${index + 1}`"
                                             v-if="
                                                 question.playersThatDidntHaveAnythingIds.includes(player.id) &&
                                                 (question.suspectCardId === card.id ||
@@ -246,7 +246,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
                                             class="tooltip text-xs hover:z-20"
-                                            :data-tip="`Showed this card to ${
+                                            :data-tip="`${player.name} showed this card to ${
                                                 PlayerStore.players.find((p) => p.id == question.askingPlayerId)?.name
                                             } in question ${index + 1}`"
                                             v-if="
