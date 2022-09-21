@@ -213,7 +213,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                 <div class="absolute top-0 left-0 w-full flex flex-row justify-start">
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
-                                            class="text-xs tooltip"
+                                            class="text-xs tooltip hover:z-50"
                                             :data-tip="`Didn't have this card in Question ${index + 1}`"
                                             v-if="
                                                 question.playersThatDidntHaveAnythingIds.includes(player.id) &&
@@ -228,13 +228,15 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                 </div>
                                 <div>
                                     <button
-                                        class="btn btn-sm btn-square hover:btn-success btn-ghost"
+                                        class="btn btn-sm btn-square hover:btn-success btn-ghost tooltip hover:z-50 normal-case"
+                                        data-tip="Has this card"
                                         @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
                                     >
                                         <Icon name="md-check"></Icon>
                                     </button>
                                     <button
-                                        class="btn btn-sm btn-square hover:btn-error btn-ghost"
+                                        class="btn btn-sm btn-square hover:btn-error btn-ghost tooltip hover:z-50 normal-case"
+                                        data-tip="Does not have this card"
                                         @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
                                     >
                                         <Icon name="md-close"></Icon>
