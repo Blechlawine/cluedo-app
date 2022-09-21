@@ -222,7 +222,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                 <div class="absolute top-0 left-0 w-full flex flex-row justify-start">
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
-                                            class="text-xs tooltip hover:z-50"
+                                            class="text-xs tooltip tooltip-error hover:z-50"
                                             :data-tip="
                                                 $t('does-not-have-this-card-with-question', {
                                                     player: player.name,
@@ -259,7 +259,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                 <div class="absolute bottom-0 right-0 w-full flex flex-row justify-end">
                                     <template v-for="(question, index) in QuestionStore.questions" :key="question.id">
                                         <span
-                                            class="tooltip text-xs hover:z-20"
+                                            class="tooltip tooltip-success text-xs hover:z-20"
                                             :data-tip="
                                                 $t('showed-this-card-to', {
                                                     player: player.name,
