@@ -37,5 +37,8 @@
   "does-not-have-this-card-with-question": "{player} doesn't have this card: Question {questionNumber}",
   "pick-one-player": "Pick a player",
   "pick-one-card": "Pick a card",
-  "create-new-question": "Create new question"
+  "create-new-question": "Create new question",
+  "new_game_tooltip": "Start new game",
+  "save_game_tooltip": "Download current game",
+  "load_game_tooltip": "Load saved game"
 }

@@ -170,7 +170,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                 class="text-center relative"
                             >
                                 <div class="flex flex-col">
-                                    <div class="absolute top-0 left-0 w-full flex flex-row justify-start">
+                                    <div
+                                        class="absolute top-0 left-0 w-full flex flex-row justify-start"
+                                    >
                                         <template
                                             v-for="(question, index) in QuestionStore.questions"
                                             :key="question.id"
@@ -184,7 +186,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                                     })
                                                 "
                                                 v-if="
-                                                    question.playersThatDidntHaveAnythingIds.includes(player.id) &&
+                                                    question.playersThatDidntHaveAnythingIds.includes(
+                                                        player.id
+                                                    ) &&
                                                     (question.suspectCardId === card.id ||
                                                         question.weaponCardId === card.id ||
                                                         question.locationCardId === card.id)
@@ -198,19 +202,35 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                         <button
                                             class="btn btn-sm btn-square hover:btn-success btn-ghost tooltip hover:z-50 normal-case"
                                             :data-tip="$t('has-this-card')"
-                                            @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
+                                            @click="
+                                                () =>
+                                                    upsertPlayerCardRelation(
+                                                        player.id,
+                                                        card.id,
+                                                        true
+                                                    )
+                                            "
                                         >
                                             <Icon name="md-check"></Icon>
                                         </button>
                                         <button
                                             class="btn btn-sm btn-square hover:btn-error btn-ghost tooltip hover:z-50 normal-case"
                                             :data-tip="$t('does-not-have-this-card')"
-                                            @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
+                                            @click="
+                                                () =>
+                                                    upsertPlayerCardRelation(
+                                                        player.id,
+                                                        card.id,
+                                                        false
+                                                    )
+                                            "
                                         >
                                             <Icon name="md-close"></Icon>
                                         </button>
                                     </div>
-                                    <div class="absolute bottom-0 right-0 w-full flex flex-row justify-end">
+                                    <div
+                                        class="absolute bottom-0 right-0 w-full flex flex-row justify-end"
+                                    >
                                         <template
                                             v-for="(question, index) in QuestionStore.questions"
                                             :key="question.id"
@@ -235,7 +255,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                                             >
                                                 {{
                                                     PlayerStore.players
-                                                        .find((p) => p.id == question.askingPlayerId)
+                                                        .find(
+                                                            (p) => p.id == question.askingPlayerId
+                                                        )
                                                         ?.name.substring(0, 1)
                                                 }}
                                             </span>
@@ -248,10 +270,15 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 </table>
             </main>
             <div class="questions flex flex-col border-l-2 border-base-300 overflow-auto">
-                <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
+                <div
+                    class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100"
+                >
                     <h1>{{ $t("questions") }}</h1>
                 </div>
-                <QuestionList label="questionModal" @edit-item="onQuestionListEditItem"></QuestionList>
+                <QuestionList
+                    label="questionModal"
+                    @edit-item="onQuestionListEditItem"
+                ></QuestionList>
                 <QuestionModal
                     :open="questionModalOpen"
                     label="questionModal"
@@ -265,22 +292,46 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
             <label for="main-drawer" class="drawer-overlay"></label>
             <div class="grid w-full h-full bg-base-100 lg:w-96">
                 <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
-                    <label class="btn btn-sm btn-square text-error hover:btn-error" for="newGameModal">
-                        <Icon name="md-noteadd"></Icon>
-                    </label>
-                    <a
-                        :href="`data:text/json;charset=utf-8,${saveData}`"
-                        download="saveData.json"
-                        class="btn btn-sm btn-square text-success hover:btn-success"
+                    <span
+                        class="tooltip tooltip-right tooltip-error hover:z-50"
+                        :data-tip="$t('new_game_tooltip')"
                     >
-                        <Icon name="md-save"></Icon>
-                    </a>
-                    <label for="saveDataInput" class="btn btn-sm btn-square text-warning hover:btn-warning">
-                        <Icon name="md-fileopen"></Icon>
-                    </label>
+                        <label
+                            class="btn btn-sm btn-square text-error hover:btn-error"
+                            for="newGameModal"
+                        >
+                            <Icon name="md-noteadd"></Icon>
+                        </label>
+                    </span>
+                    <span
+                        class="tooltip tooltip-right tooltip-success hover:z-50"
+                        :data-tip="$t('save_game_tooltip')"
+                    >
+                        <a
+                            :href="`data:text/json;charset=utf-8,${saveData}`"
+                            download="saveData.json"
+                            class="btn btn-sm btn-square text-success hover:btn-success"
+                        >
+                            <Icon name="md-save"></Icon>
+                        </a>
+                    </span>
+                    <span
+                        class="tooltip tooltip-right tooltip-warning hover:z-50"
+                        :data-tip="$t('load_game_tooltip')"
+                    >
+                        <label
+                            for="saveDataInput"
+                            class="btn btn-sm btn-square text-warning hover:btn-warning"
+                        >
+                            <Icon name="md-fileopen"></Icon>
+                        </label>
+                    </span>
                     <div class="dropdown">
                         <label tabindex="0" class="btn btn-sm">{{ $t("language") }}</label>
-                        <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul
+                            tabindex="0"
+                            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                        >
                             <li><a @click="LanguageStore.locale = 'en'">English</a></li>
                             <li><a @click="LanguageStore.locale = 'de'">Deutsch</a></li>
                         </ul>
@@ -290,8 +341,12 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                         <Icon name="md-close"></Icon>
                     </label>
                 </div>
-                <div class="players flex flex-col border-r-2 border-b-2 border-base-300 overflow-auto">
-                    <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
+                <div
+                    class="players flex flex-col border-r-2 border-b-2 border-base-300 overflow-auto"
+                >
+                    <div
+                        class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100"
+                    >
                         <h1>{{ $t("players") }}</h1>
                         <label for="playerModal" class="btn btn-sm modal-button flex gap-1 pl-2">
                             <Icon name="md-add"></Icon>
@@ -308,7 +363,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                     <PlayerList label="playerModal" @edit-item="onPlayerListEditItem"></PlayerList>
                 </div>
                 <div class="cards flex flex-col border-r-2 border-base-300 overflow-auto">
-                    <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100">
+                    <div
+                        class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100"
+                    >
                         <h1>{{ $t("cards") }}</h1>
                         <label for="cardModal" class="btn btn-sm modal-button flex gap-1 pl-2">
                             <Icon name="md-add"></Icon>
@@ -337,14 +394,25 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 <h3 class="text-lg font-bold">{{ $t("start-new-game") }}</h3>
                 <p>{{ $t("warning-delete-everything") }}</p>
                 <div class="modal-action">
-                    <label for="newGameModal" class="btn btn-sm btn-ghost">{{ $t("cancel") }}</label>
-                    <label for="newGameModal" class="btn btn-sm btn-primary" @click="startNewGame">{{
-                        $t("continue")
+                    <label for="newGameModal" class="btn btn-sm btn-ghost">{{
+                        $t("cancel")
                     }}</label>
+                    <label
+                        for="newGameModal"
+                        class="btn btn-sm btn-primary"
+                        @click="startNewGame"
+                        >{{ $t("continue") }}</label
+                    >
                 </div>
             </div>
         </div>
-        <input class="hidden" type="file" name="saveDataInput" id="saveDataInput" @change="loadSaveData" />
+        <input
+            class="hidden"
+            type="file"
+            name="saveDataInput"
+            id="saveDataInput"
+            @change="loadSaveData"
+        />
     </teleport>
 </template>
 <style>

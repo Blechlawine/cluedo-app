@@ -37,5 +37,8 @@
   "does-not-have-this-card-with-question": "{player} hat diese Karte nicht: Frage {questionNumber}",
   "create-new-question": "Neue Frage",
   "pick-one-card": "Wähle eine Karte",
-  "pick-one-player": "Wähle einen Spieler"
+  "pick-one-player": "Wähle einen Spieler",
+  "load_game_tooltip": "Gespeichertes Spiel laden",
+  "new_game_tooltip": "Neues Spiel starten",
+  "save_game_tooltip": "Spielstand herunterladen"
 }
