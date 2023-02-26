@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 # Chrono for date and time things
 chrono = "0.4.23"
+dotenv = "0.15.0"
 # Rocket is the webserver
 rocket = {version = "0.5.0-rc.2", features = ["json"]}
 # Serde for deserialization and serialization

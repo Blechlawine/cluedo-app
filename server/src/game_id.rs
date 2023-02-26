@@ -1,6 +1,7 @@
 // use chrono::prelude::*;
 use rocket::request::FromParam;
 use std::borrow::Cow;
+use std::env;
 use std::path::{Path, PathBuf};
 
 #[derive(UriDisplayPath)]
@@ -13,8 +14,8 @@ impl GameId<'_> {
     // }
 
     pub fn file_path(&self) -> PathBuf {
-        let upload_dir = option_env!("UPLOAD_DIR").unwrap_or("upload");
-        let root = Path::new(upload_dir);
+        let upload_dir = env::var("UPLOAD_DIR").unwrap_or("upload".to_owned());
+        let root = Path::new(&upload_dir);
         root.join(self.0.as_ref())
     }
 }
