@@ -6,11 +6,7 @@ import QuestionModal from "./components/QuestionModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
 import usePlayerCardRelations from "./store/playerCardRelationStore";
-import {
-    QuestionInput,
-    QuestionOutput,
-    SaveDataValidator,
-} from "./types/validators";
+import { QuestionInput, QuestionOutput, SaveDataValidator } from "./types/validators";
 import { computed, ref } from "vue";
 import useQuestions from "./store/questionStore";
 import useLanguages from "./store/languageStore";
@@ -241,17 +237,14 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 >
                     <h1>{{ $t("questions") }}</h1>
                 </div>
-                <QuestionList
-                    label="questionModal"
-                    @edit-item="onQuestionListEditItem"
-                ></QuestionList>
+                <QuestionList label="questionModal" @edit-item="onQuestionListEditItem" />
                 <QuestionModal
                     :open="questionModalOpen"
                     label="questionModal"
                     @save="onQuestionModalSave"
                     @close="onQuestionModalClose"
                     :preset-values="questionModalPresetValues"
-                ></QuestionModal>
+                />
             </div>
         </div>
         <div class="drawer-side w-full">
@@ -322,15 +315,12 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                 <h3 class="text-lg font-bold">{{ $t("start-new-game") }}</h3>
                 <p>{{ $t("warning-delete-everything") }}</p>
                 <div class="modal-action">
-                    <label for="newGameModal" class="btn btn-sm btn-ghost">{{
-                        $t("cancel")
-                    }}</label>
-                    <label
-                        for="newGameModal"
-                        class="btn btn-sm btn-primary"
-                        @click="startNewGame"
-                        >{{ $t("continue") }}</label
-                    >
+                    <label for="newGameModal" class="btn btn-sm btn-ghost">
+                        {{ $t("cancel") }}
+                    </label>
+                    <label for="newGameModal" class="btn btn-sm btn-primary" @click="startNewGame">
+                        {{ $t("continue") }}
+                    </label>
                 </div>
             </div>
         </div>

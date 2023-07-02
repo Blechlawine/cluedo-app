@@ -28,11 +28,21 @@ const props = defineProps({
     },
 });
 
-const askingPlayer = computed(() => PlayerStore.players.find((p) => p.id === props.question.askingPlayerId));
-const answeringPlayer = computed(() => PlayerStore.players.find((p) => p.id === props.question.answeringPlayerId));
+const askingPlayer = computed(() =>
+    PlayerStore.players.find((p) => p.id === props.question.askingPlayerId)
+);
+const answeringPlayer = computed(() =>
+    PlayerStore.players.find((p) => p.id === props.question.answeringPlayerId)
+);
 const timestamp = computed(() => day(props.question.timestamp));
 
-const suspectCard = computed(() => CardStore.cards.find((c) => c.id === props.question.suspectCardId));
-const weaponCard = computed(() => CardStore.cards.find((c) => c.id === props.question.weaponCardId));
-const locationCard = computed(() => CardStore.cards.find((c) => c.id === props.question.locationCardId));
+const suspectCard = computed(() =>
+    CardStore.cards.find((c) => c.id === props.question.suspectCardId)
+);
+const weaponCard = computed(() =>
+    CardStore.cards.find((c) => c.id === props.question.weaponCardId)
+);
+const locationCard = computed(() =>
+    CardStore.cards.find((c) => c.id === props.question.locationCardId)
+);
 </script>

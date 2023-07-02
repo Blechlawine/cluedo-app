@@ -5,7 +5,9 @@
                 <th class="w-max">{{ $t("timestamp") }}</th>
                 <th class="">{{ $t("asking") }}</th>
                 <th class="">{{ $t("answering") }}</th>
-                <th class="w-min">{{ $t("suspect") }} + {{ $t("weapon") }} + {{ $t("location") }}</th>
+                <th class="w-min">
+                    {{ $t("suspect") }} + {{ $t("weapon") }} + {{ $t("location") }}
+                </th>
                 <th class="">{{ $t("edit") }}</th>
                 <th class="">{{ $t("delete") }}</th>
             </tr>
@@ -18,7 +20,7 @@
                     class="btn btn-sm btn-square btn-ghost"
                     @click="() => onEditClick(question.id)"
                 >
-                    <Icon name="md-edit"></Icon>
+                    <Icon name="md-edit" />
                 </label>
             </td>
             <td>
@@ -26,7 +28,7 @@
                     class="btn btn-sm btn-square btn-ghost hover:btn-error"
                     @click="() => onDeleteClick(question.id)"
                 >
-                    <Icon name="md-delete"></Icon>
+                    <Icon name="md-delete" />
                 </button>
             </td>
         </tr>

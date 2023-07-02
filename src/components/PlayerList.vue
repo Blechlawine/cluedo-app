@@ -3,13 +3,18 @@
         <thead>
             <tr>
                 <th class="w-6"></th>
-                <th class="w-1/2">{{ $t('name') }}</th>
-                <th class="w-1/2">{{ $t('cards') }}</th>
-                <th class="w-min">{{ $t('edit') }}</th>
-                <th class="w-min">{{ $t('delete') }}</th>
+                <th class="w-1/2">{{ $t("name") }}</th>
+                <th class="w-1/2">{{ $t("cards") }}</th>
+                <th class="w-min">{{ $t("edit") }}</th>
+                <th class="w-min">{{ $t("delete") }}</th>
             </tr>
         </thead>
-        <Draggable tag="tbody" handle=".drag-handle" :list="PlayerStore.players" ghost-class="opacity-50">
+        <Draggable
+            tag="tbody"
+            handle=".drag-handle"
+            :list="PlayerStore.players"
+            ghost-class="opacity-50"
+        >
             <tr v-for="player in PlayerStore.players" class="hover" :key="player.id">
                 <td class="drag-handle">
                     <Icon name="md-dragindicator"></Icon>

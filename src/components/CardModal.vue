@@ -3,7 +3,11 @@
         <input type="checkbox" :checked="props.open" :id="props.label" class="modal-toggle" />
         <div class="modal">
             <div class="modal-box relative">
-                <label :for="props.label" class="btn btn-sm btn-circle absolute right-2 top-2" @click="closeBtnClick">
+                <label
+                    :for="props.label"
+                    class="btn btn-sm btn-circle absolute right-2 top-2"
+                    @click="closeBtnClick"
+                >
                     <Icon name="md-close"></Icon>
                 </label>
                 <h3 class="text-lg font-bold">{{ props.title ?? $t("create-new-card") }}</h3>
@@ -36,9 +40,9 @@
                     </div>
                 </div>
                 <div class="modal-action">
-                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">{{
-                        $t("save")
-                    }}</label>
+                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">
+                        {{ $t("save") }}
+                    </label>
                 </div>
             </div>
         </div>

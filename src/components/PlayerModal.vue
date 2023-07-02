@@ -3,8 +3,12 @@
         <input type="checkbox" :checked="props.open" :id="props.label" class="modal-toggle" />
         <div class="modal">
             <div class="modal-box relative">
-                <label :for="props.label" class="btn btn-sm btn-circle absolute right-2 top-2" @click="closeBtnClick">
-                    <Icon name="md-close"></Icon>
+                <label
+                    :for="props.label"
+                    class="btn btn-sm btn-circle absolute right-2 top-2"
+                    @click="closeBtnClick"
+                >
+                    <Icon name="md-close" />
                 </label>
                 <h3 class="text-lg font-bold">{{ props.title ?? $t("create-new-player") }}</h3>
                 <div class="">
@@ -32,7 +36,9 @@
                     </div>
                 </div>
                 <div class="modal-action">
-                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">Save</label>
+                    <label :for="props.label" class="btn btn-sm btn-primary" @click="saveBtnClick">
+                        {{ $t("save") }}
+                    </label>
                 </div>
             </div>
         </div>
