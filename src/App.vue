@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import PlayerList from "./components/PlayerList.vue";
 import PlayerModal from "./components/PlayerModal.vue";
-import CardList from "./components/CardList.vue";
-import CardModal from "./components/CardModal.vue";
+import CardSection from "./components/CardSection.vue";
 import QuestionList from "./components/QuestionList.vue";
 import QuestionModal from "./components/QuestionModal.vue";
 import useCards from "./store/cardStore";
 import usePlayers from "./store/playerStore";
 import usePlayerCardRelations from "./store/playerCardRelationStore";
 import {
-    CardInput,
-    CardOutput,
     PlayerInput,
     PlayerOutput,
     QuestionInput,
@@ -28,9 +25,7 @@ const PlayerCardRelationStore = usePlayerCardRelations();
 const LanguageStore = useLanguages();
 
 const playerModalOpen = ref(false);
-const cardModalOpen = ref(false);
 const questionModalOpen = ref(false);
-const cardModalPresetValues = ref<CardOutput | null>(null);
 const playerModalPresetValues = ref<PlayerOutput | null>(null);
 const questionModalPresetValues = ref<QuestionOutput | null>(null);
 
@@ -45,10 +40,6 @@ const saveData = computed(() =>
     )
 );
 
-const onCardModalClose = () => {
-    cardModalPresetValues.value = null;
-};
-
 const onPlayerModalClose = () => {
     playerModalPresetValues.value = null;
 };
@@ -57,20 +48,12 @@ const onQuestionModalClose = () => {
     questionModalPresetValues.value = null;
 };
 
-const onCardModalSave = (data: CardInput) => {
-    CardStore.upsert(data);
-};
-
 const onPlayerModalSave = (data: PlayerInput) => {
     PlayerStore.upsert(data);
 };
 
 const onQuestionModalSave = (data: QuestionInput) => {
     QuestionStore.upsert(data);
-};
-
-const onCardListEditItem = (cardId: string) => {
-    cardModalPresetValues.value = CardStore.getByID(cardId) ?? null;
 };
 
 const onPlayerListEditItem = (playerId: string) => {
@@ -362,25 +345,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                     ></PlayerModal>
                     <PlayerList label="playerModal" @edit-item="onPlayerListEditItem"></PlayerList>
                 </div>
-                <div class="cards flex flex-col border-r-2 border-base-300 overflow-auto">
-                    <div
-                        class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 z-20 bg-base-100"
-                    >
-                        <h1>{{ $t("cards") }}</h1>
-                        <label for="cardModal" class="btn btn-sm modal-button flex gap-1 pl-2">
-                            <Icon name="md-add"></Icon>
-                            {{ $t("card") }}
-                        </label>
-                    </div>
-                    <CardModal
-                        :open="cardModalOpen"
-                        label="cardModal"
-                        @save="onCardModalSave"
-                        @close="onCardModalClose"
-                        :preset-values="cardModalPresetValues"
-                    ></CardModal>
-                    <CardList label="cardModal" @edit-item="onCardListEditItem"></CardList>
-                </div>
+                <CardSection />
             </div>
         </div>
     </div>
