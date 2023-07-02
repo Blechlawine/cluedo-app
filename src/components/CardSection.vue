@@ -15,8 +15,8 @@
             @save="onCardModalSave"
             @close="onCardModalClose"
             :preset-values="cardModalPresetValues"
-        ></CardModal>
-        <CardList label="cardModal" @edit-item="onCardListEditItem"></CardList>
+        />
+        <CardList label="cardModal" @edit-item="onCardListEditItem" />
     </div>
 </template>
 <script setup lang="ts">
@@ -42,5 +42,4 @@ const onCardListEditItem = (cardId: string) => {
 const onCardModalSave = (data: CardInput) => {
     CardStore.upsert(data);
 };
-
 </script>
