@@ -1,5 +1,6 @@
 # Customized from https://github.com/patrick-fitzgerald/actix-web-docker-example/blob/develop/Dockerfile
 # More info https://shaneutt.com/blog/rust-fast-small-docker-image-builds/
+# another example: https://jakewharton.com/cross-compiling-static-rust-binaries-in-docker-for-raspberry-pi/
 
 # ------------------------------------------------------------------------------
 # Backend Build Stage
