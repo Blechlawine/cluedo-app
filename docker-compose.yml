@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    image: blechlawine/cluedo-app
+    container_name: cluedo-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server/upload:/srv/upload
+    command: ["sleep", "10000"]
+    
