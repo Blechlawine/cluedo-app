@@ -7,25 +7,20 @@
 
 FROM messense/rust-musl-cross:armv7-musleabihf as backend-builder
 
-# RUN apt-get update
-# RUN apt-get install musl-tools libssl-dev pkgconf -y
-# RUN apt-get -y install binutils-arm-linux-gnueabihf
-# RUN rustup target add armv7-unknown-linux-musleabihf
-
 WORKDIR /home/rust/cluedo_app
-# Only build the dependencies, so we can cache them
+# Only build the dependencies, so docker can cache them
 COPY ./server/Cargo.toml ./Cargo.toml
 RUN mkdir src/
 
 RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
 
-RUN cargo build --release --target=armv7-unknown-linux-musleabihf
+RUN cargo build --release
 
 # Now build the actual app
 # this line prevents the dependencies from being built again (when src/*.rs files change)
 RUN rm ./target/armv7-unknown-linux-musleabihf/release/deps/cluedo_app*
 COPY ./server .
-RUN cargo build --release --target=armv7-unknown-linux-musleabihf
+RUN cargo build --release
 
 # ------------------------------------------------------------------------------
 # Frontend Build Stage
