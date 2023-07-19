@@ -11,7 +11,7 @@ use rocket::serde::json::Json;
 use rocket::tokio::fs::File;
 use rocket::{Config, State};
 use std::env;
-use std::net::{Ipv4Addr, IpAddr};
+use std::net::Ipv4Addr;
 use std::path::Path;
 
 struct AppState {
