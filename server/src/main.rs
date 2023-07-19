@@ -11,6 +11,7 @@ use rocket::serde::json::Json;
 use rocket::tokio::fs::File;
 use rocket::{Config, State};
 use std::env;
+use std::net::{Ipv4Addr, IpAddr};
 use std::path::Path;
 
 struct AppState {
@@ -63,12 +64,17 @@ fn rocket() -> _ {
         .unwrap_or("8000".to_owned())
         .parse::<_>()
         .unwrap();
+    let address = env::var("HOST")
+        .unwrap_or(Ipv4Addr::new(127, 0, 0, 1).to_string())
+        .parse::<_>()
+        .unwrap();
     let app_dir = env::var("APP_DIR").unwrap_or("/srv/app".to_owned());
     let upload_dir = env::var("UPLOAD_DIR").unwrap_or("/srv/upload".to_owned());
     rocket::build()
         .manage(AppState { upload_dir })
         .configure(Config {
             port,
+            address,
             ..Default::default()
         })
         .mount("/", FileServer::from(app_dir))

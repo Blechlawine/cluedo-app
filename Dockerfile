@@ -55,6 +55,7 @@ FROM --platform=$BUILDPLATFORM alpine as runner
 WORKDIR /app
 COPY --from=backend-builder /home/rust/cluedo_app/target/armv7-unknown-linux-musleabihf/release/cluedo_app ./cluedo_app
 
+ENV HOST=127.0.0.1
 ENV PORT=3000
 ENV UPLOAD_DIR=/srv/upload
 ENV APP_DIR=/srv/app
