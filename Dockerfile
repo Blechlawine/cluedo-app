@@ -15,7 +15,6 @@ FROM messense/rust-musl-cross:armv7-musleabihf as backend-builder
 WORKDIR /home/rust/cluedo_app
 # Only build the dependencies, so we can cache them
 COPY ./server/Cargo.toml ./Cargo.toml
-COPY ./server/Cargo.lock ./Cargo.lock
 RUN mkdir src/
 
 RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
