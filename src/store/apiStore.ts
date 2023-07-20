@@ -1,4 +1,4 @@
-import { GetResponse, ListResponse, SaveResponse } from "../types/api";
+import { ListResponse, SaveResponse } from "../types/api";
 import useGameDataStore from "./gameDataStore";
 import { useAsyncState } from "@vueuse/core";
 import { defineStore } from "pinia";

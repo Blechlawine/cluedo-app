@@ -1,14 +1,7 @@
-import { SaveDataOutput } from "./validators";
+import { GameDataOutput } from "./validators";
 
-export type ListResponse = GameData[];
+export type ListResponse = GameDataOutput[];
 
 export type SaveResponse = string;
 
-export type GetResponse = GameData;
-
-export type GameData = {
-    id: string;
-    name: string;
-    timestamp: string;
-    data: SaveDataOutput;
-}
+export type GetResponse = GameDataOutput;
