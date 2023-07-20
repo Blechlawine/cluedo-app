@@ -44,5 +44,7 @@
     "back_to_overview": "Zurück zur Übersicht",
     "download": "Herunterladen",
     "upload": "Hochladen",
-    "id": "ID"
+    "id": "ID",
+    "already_saved": "Schon gespeichert",
+    "open": "Öffnen"
 }

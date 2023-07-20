@@ -44,5 +44,7 @@
     "back_to_overview": "Back to overview",
     "download": "Download",
     "upload": "Upload",
-    "id": "ID"
+    "id": "ID",
+    "already_saved": "Already saved",
+    "open": "Open"
 }

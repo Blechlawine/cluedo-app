@@ -9,7 +9,7 @@
                     <th>{{ $t("id") }}</th>
                     <th>{{ $t("name") }}</th>
                     <th>{{ $t("timestamp") }}</th>
-                    <th></th>
+                    <th>{{ $t("open") }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,7 +17,14 @@
                     <td>{{ game.id }}</td>
                     <td>{{ game.name }}</td>
                     <td>{{ dayjs(game.timestamp).format("LLL") }}</td>
-                    <td></td>
+                    <td>
+                        <button
+                            class="btn hover:btn-warning btn-sm btn-square"
+                            @click="openGame(game.id)"
+                        >
+                            <Icon name="md-fileopen"></Icon>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -27,6 +34,21 @@
 import dayjs from "dayjs";
 import useApiStore from "../store/apiStore";
 import Toolbar from "../components/Toolbar.vue";
+import { onMounted } from "vue";
+import useGameDataStore from "../store/gameDataStore";
+import { useRouter } from "vue-router";
 
 const ApiStore = useApiStore();
+const GameDataStore = useGameDataStore();
+const Router = useRouter();
+
+onMounted(() => {
+    ApiStore.saved.execute();
+});
+
+async function openGame(id: string) {
+    const data = await ApiStore.getOne(id);
+    GameDataStore.deserialize(data);
+    Router.push("/app");
+}
 </script>

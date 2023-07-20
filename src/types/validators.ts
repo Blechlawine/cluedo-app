@@ -38,15 +38,6 @@ export const PlayerCardRelationValidator = z.object({
 export type PlayerCardRelationInput = z.input<typeof PlayerCardRelationValidator>;
 export type PlayerCardRelationOutput = z.output<typeof PlayerCardRelationValidator>;
 
-export const SaveDataValidator = z.object({
-    players: z.array(PlayerValidator),
-    cards: z.array(CardValidator),
-    questions: z.array(QuestionValidator),
-    playerCardRelations: z.array(PlayerCardRelationValidator),
-});
-export type SaveDataInput = z.input<typeof SaveDataValidator>;
-export type SaveDataOutput = z.output<typeof SaveDataValidator>;
-
 export const GameDataValidator = z.object({
     id: z.string(),
     name: z.string(),

@@ -8,6 +8,11 @@
             <Icon name="md-arrowback"></Icon>
         </router-link>
     </span>
+    <span v-else-if="GameDataStore.isGameGoing" class="tooltip tooltip-right hover:z-50">
+        <router-link to="/app" class="btn btn-sm btn-square">
+            <Icon name="md-arrowforward"></Icon>
+        </router-link>
+    </span>
     <span class="tooltip tooltip-right tooltip-error hover:z-50" :data-tip="$t('new_game_tooltip')">
         <button
             class="btn btn-sm btn-square text-error hover:btn-error"
@@ -28,7 +33,9 @@
 
     <Modal name="newGameModal">
         <h3 class="text-lg font-bold">{{ $t("start-new-game") }}</h3>
-        <p v-if="GameDataStore.isGameGoing">{{ $t("warning-delete-everything") }}</p>
+        <p v-if="GameDataStore.isGameGoing && !GameDataStore.isSaved">
+            {{ $t("warning-delete-everything") }}
+        </p>
         <template #action>
             <button class="btn btn-sm btn-ghost">
                 {{ $t("cancel") }}

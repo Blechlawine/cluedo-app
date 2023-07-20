@@ -19,15 +19,16 @@
 </template>
 <script setup lang="ts">
 import useCards from "../store/cardStore";
+import useGameDataStore from "../store/gameDataStore";
 import usePlayerCardRelations from "../store/playerCardRelationStore";
 import usePlayers from "../store/playerStore";
 import useQuestions from "../store/questionStore";
-import { SaveDataValidator } from "../types/validators";
 
 const CardStore = useCards();
 const PlayerStore = usePlayers();
 const QuestionStore = useQuestions();
 const PlayerCardRelationStore = usePlayerCardRelations();
+const GameDataStore = useGameDataStore();
 
 const loadSaveData = (event: Event) => {
     const eventTarget = event.target as HTMLInputElement;
@@ -36,15 +37,15 @@ const loadSaveData = (event: Event) => {
         let reader = new FileReader();
         reader.onload = (e) => {
             const raw = e.target?.result as string;
-            const parsed = SaveDataValidator.safeParse(JSON.parse(raw));
-            if (parsed.success) {
+            const parsed = GameDataStore.deserialize(raw);
+            if (parsed != null) {
                 const data = parsed.data;
                 PlayerStore.players = data.players;
                 CardStore.cards = data.cards;
                 QuestionStore.questions = data.questions;
                 PlayerCardRelationStore.playerCardRelations = data.playerCardRelations;
             } else {
-                // TODO: show alert "Error parsing save"
+                // TODO: Show error
             }
         };
         reader.readAsText(eventTarget.files[0]);

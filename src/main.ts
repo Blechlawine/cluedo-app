@@ -8,6 +8,7 @@ import { OhVueIcon, addIcons } from "oh-vue-icons";
 import {
     MdAdd,
     MdArrowback,
+    MdArrowforward,
     MdCheck,
     MdClose,
     MdDelete,
@@ -27,6 +28,7 @@ import routes from "~pages";
 
 dayjs.extend(localizedFormat);
 
+// TODO: replace oh-vue-icons with unocss icons
 addIcons(
     MdClose,
     MdMenu,
@@ -39,6 +41,7 @@ addIcons(
     MdDragindicator,
     MdAdd,
     MdArrowback,
+    MdArrowforward,
 );
 
 const pinia = createPinia();

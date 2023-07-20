@@ -1,17 +1,20 @@
 import { GetResponse, ListResponse, SaveResponse } from "../types/api";
-import { SaveDataOutput } from "../types/validators";
+import useGameDataStore from "./gameDataStore";
 import { useAsyncState } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { ulid } from "ulid";
 
 const useApiStore = defineStore("api", () => {
     const saved = useAsyncState(getList, []);
+    const GameDataStore = useGameDataStore();
 
-    async function save(data: SaveDataOutput) {
-        const id = ulid();
-        const response = await fetch(`/api/save/${id}`, {
+    async function save(name: string) {
+        const body = GameDataStore.serialize(name);
+        const response = await fetch("/api/save", {
             method: "POST",
-            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body,
         });
         const savedPath = (await response.json()) as SaveResponse;
         await saved.execute();
@@ -20,8 +23,8 @@ const useApiStore = defineStore("api", () => {
 
     async function getOne(id: string) {
         const response = await fetch(`/api/get/${id}`);
-        const json = (await response.json()) as GetResponse;
-        return json;
+        const text = await response.text();
+        return text;
     }
 
     async function getList() {
