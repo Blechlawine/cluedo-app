@@ -93,9 +93,9 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
 </script>
 
 <template>
-    <div class="drawer drawer-mobile">
+    <div class="drawer lg:drawer-open">
         <input type="checkbox" class="drawer-toggle" id="main-drawer" />
-        <input type="checkbox" class="drawer-toggle" id="question-drawer" />
+        <!-- <input type="checkbox" class="drawer-toggle" id="question-drawer" /> -->
         <div class="drawer-content grid">
             <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
                 <label for="main-drawer" class="btn btn-sm btn-square drawer-button lg:hidden">
@@ -289,7 +289,7 @@ const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boole
                         <label tabindex="0" class="btn btn-sm">{{ $t("language") }}</label>
                         <ul
                             tabindex="0"
-                            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                            class="dropdown-content menu z-30 p-2 shadow bg-base-100 rounded-box"
                         >
                             <li><a @click="LanguageStore.locale = 'en'">English</a></li>
                             <li><a @click="LanguageStore.locale = 'de'">Deutsch</a></li>
