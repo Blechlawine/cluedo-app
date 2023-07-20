@@ -1,8 +1,8 @@
+import {ulid} from "ulid";
 import { z } from "zod";
-import * as uuid from "uuid";
 
 export const CardValidator = z.object({
-    id: z.string().default(uuid.v4),
+    id: z.string().default(ulid),
     name: z.string(),
     category: z.enum(["suspect", "weapon", "location"]).default("suspect"),
 });
@@ -10,7 +10,7 @@ export type CardInput = z.input<typeof CardValidator>;
 export type CardOutput = z.output<typeof CardValidator>;
 
 export const PlayerValidator = z.object({
-    id: z.string().default(uuid.v4),
+    id: z.string().default(ulid),
     name: z.string(),
     cardAmount: z.number(),
 });
@@ -18,7 +18,7 @@ export type PlayerInput = z.input<typeof PlayerValidator>;
 export type PlayerOutput = z.output<typeof PlayerValidator>;
 
 export const QuestionValidator = z.object({
-    id: z.string().default(uuid.v4),
+    id: z.string().default(ulid),
     askingPlayerId: z.string(),
     answeringPlayerId: z.string().nullable(),
     playersThatDidntHaveAnythingIds: z.array(z.string()),

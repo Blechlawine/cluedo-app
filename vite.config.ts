@@ -1,11 +1,13 @@
-import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { defineConfig } from "vite";
+import Pages from "vite-plugin-pages";
 import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [
         vue(),
+        Pages(),
         VitePWA({
             registerType: "autoUpdate",
             manifest: {
@@ -21,4 +23,9 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        proxy: {
+            "/api": "http://localhost:3000",
+        },
+    },
 });

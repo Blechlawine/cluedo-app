@@ -2,52 +2,57 @@
 extern crate rocket;
 
 mod game_id;
+mod game_data;
 
+use game_data::GameData;
+use rocket::tokio::io::AsyncWriteExt;
 use dotenv::dotenv;
 use game_id::GameId;
-use rocket::data::{Data, ToByteUnit};
 use rocket::fs::FileServer;
 use rocket::serde::json::Json;
 use rocket::tokio::fs::File;
 use rocket::{Config, State};
 use std::env;
+use std::fs::read_to_string;
 use std::net::Ipv4Addr;
 use std::path::Path;
+
+use crate::game_data::UploadData;
 
 struct AppState {
     upload_dir: String,
 }
 
-// #[get("/<path..>")]
-// async fn index(state: &State<AppState>, path: PathBuf) -> Option<NamedFile> {
-//     let app_dir = &state.app_dir;
-//     NamedFile::open(Path::new(app_dir).join(path)).await.ok()
-// }
+#[post("/save", data = "<upload_data>")]
+async fn api_save(upload_data: Json<UploadData>) -> std::io::Result<String> {
+    let data = upload_data.into_inner();
+    let game_data = GameData::from(data);
+    // save GameData to file
+    let mut file = File::create(game_data.id.file_path()).await?;
+    file.write_all(serde_json::to_string(&game_data)?.as_bytes()).await?;
 
-#[post("/save/<id>", data = "<game_data>")]
-async fn api_save(id: GameId<'_>, game_data: Data<'_>) -> std::io::Result<String> {
-    game_data
-        .open(128.kibibytes())
-        .into_file(id.file_path())
-        .await?;
-    Ok(uri!(api_get_by_id(id)).to_string())
+    Ok(uri!(api_get_by_id(game_data.id)).to_string())
 }
 
 #[get("/list")]
-fn api_list(state: &State<AppState>) -> Json<Vec<String>> {
+fn api_list(state: &State<AppState>) -> std::io::Result<Json<Vec<GameData>>> {
     // list all files in upload directory
     let root = Path::new(&state.upload_dir);
     let files = root
-        .read_dir()
-        .unwrap()
-        .map(|f| f.unwrap().file_name().to_str().unwrap().to_owned())
+        .read_dir()?
+        .map(|f| {
+            let file_name = f.unwrap().file_name().to_str().unwrap().to_owned();
+            let read = read_to_string(file_name).unwrap();
+            let data: GameData = serde_json::from_str(&read).unwrap();
+            data
+        })
         .collect::<Vec<_>>();
 
-    Json(files)
+    Ok(Json(files))
 }
 
 #[get("/<id>")]
-async fn api_get_by_id(id: GameId<'_>) -> Option<File> {
+async fn api_get_by_id(id: GameId) -> Option<File> {
     File::open(id.file_path()).await.ok()
 }
 
