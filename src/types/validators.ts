@@ -1,4 +1,4 @@
-import {ulid} from "ulid";
+import { ulid } from "ulid";
 import { z } from "zod";
 
 export const CardValidator = z.object({
@@ -25,7 +25,7 @@ export const QuestionValidator = z.object({
     suspectCardId: z.string(),
     weaponCardId: z.string(),
     locationCardId: z.string(),
-    timestamp: z.string().default(() => (new Date()).toISOString()),
+    timestamp: z.string().default(() => new Date().toISOString()),
 });
 export type QuestionInput = z.input<typeof QuestionValidator>;
 export type QuestionOutput = z.output<typeof QuestionValidator>;
@@ -46,3 +46,18 @@ export const SaveDataValidator = z.object({
 });
 export type SaveDataInput = z.input<typeof SaveDataValidator>;
 export type SaveDataOutput = z.output<typeof SaveDataValidator>;
+
+export const GameDataValidator = z.object({
+    id: z.string(),
+    name: z.string(),
+    timestamp: z.string(),
+    data: z.object({
+        cards: z.array(CardValidator),
+        players: z.array(PlayerValidator),
+        questions: z.array(QuestionValidator),
+        playerCardRelations: z.array(PlayerCardRelationValidator),
+    }),
+});
+
+export type GameDataInput = z.input<typeof GameDataValidator>;
+export type GameDataOutput = z.output<typeof GameDataValidator>;

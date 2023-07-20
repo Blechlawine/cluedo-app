@@ -17,7 +17,8 @@ impl GameId {
     pub fn file_path(&self) -> PathBuf {
         let upload_dir = env::var("UPLOAD_DIR").unwrap_or("upload".to_owned());
         let root = Path::new(&upload_dir);
-        root.join(self.0.clone())
+        let own_path = Path::new(self.0.as_str());
+        root.join(own_path)
     }
 }
 

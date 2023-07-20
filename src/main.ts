@@ -2,9 +2,12 @@ import App from "./App.vue";
 import de from "./locales/de.json";
 import en from "./locales/en.json";
 import "./style.css";
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import {
     MdAdd,
+    MdArrowback,
     MdCheck,
     MdClose,
     MdDelete,
@@ -22,6 +25,8 @@ import { createI18n } from "vue-i18n";
 import { createRouter, createWebHistory } from "vue-router";
 import routes from "~pages";
 
+dayjs.extend(localizedFormat);
+
 addIcons(
     MdClose,
     MdMenu,
@@ -33,6 +38,7 @@ addIcons(
     MdCheck,
     MdDragindicator,
     MdAdd,
+    MdArrowback,
 );
 
 const pinia = createPinia();

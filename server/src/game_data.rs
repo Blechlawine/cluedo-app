@@ -1,4 +1,3 @@
-use chrono::serde::ts_seconds;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
@@ -74,7 +73,6 @@ struct Question {
     weapon_card_id: String,
     #[serde(rename = "locationCardId")]
     location_card_id: String,
-    #[serde(with = "ts_seconds")]
     timestamp: DateTime<chrono::Utc>,
 }
 

@@ -1,16 +1,16 @@
 #[macro_use]
 extern crate rocket;
 
-mod game_id;
 mod game_data;
+mod game_id;
 
-use game_data::GameData;
-use rocket::tokio::io::AsyncWriteExt;
 use dotenv::dotenv;
+use game_data::GameData;
 use game_id::GameId;
 use rocket::fs::FileServer;
 use rocket::serde::json::Json;
 use rocket::tokio::fs::File;
+use rocket::tokio::io::AsyncWriteExt;
 use rocket::{Config, State};
 use std::env;
 use std::fs::read_to_string;
@@ -23,25 +23,26 @@ struct AppState {
     upload_dir: String,
 }
 
-#[post("/save", data = "<upload_data>")]
+#[post("/save", data = "<upload_data>", format = "application/json")]
 async fn api_save(upload_data: Json<UploadData>) -> std::io::Result<String> {
     let data = upload_data.into_inner();
     let game_data = GameData::from(data);
     // save GameData to file
     let mut file = File::create(game_data.id.file_path()).await?;
-    file.write_all(serde_json::to_string(&game_data)?.as_bytes()).await?;
+    file.write_all(serde_json::to_string(&game_data)?.as_bytes())
+        .await?;
 
     Ok(uri!(api_get_by_id(game_data.id)).to_string())
 }
 
-#[get("/list")]
+#[get("/list", format = "application/json")]
 fn api_list(state: &State<AppState>) -> std::io::Result<Json<Vec<GameData>>> {
     // list all files in upload directory
     let root = Path::new(&state.upload_dir);
     let files = root
         .read_dir()?
         .map(|f| {
-            let file_name = f.unwrap().file_name().to_str().unwrap().to_owned();
+            let file_name = f.unwrap().path();
             let read = read_to_string(file_name).unwrap();
             let data: GameData = serde_json::from_str(&read).unwrap();
             data
@@ -51,9 +52,13 @@ fn api_list(state: &State<AppState>) -> std::io::Result<Json<Vec<GameData>>> {
     Ok(Json(files))
 }
 
-#[get("/<id>")]
-async fn api_get_by_id(id: GameId) -> Option<File> {
-    File::open(id.file_path()).await.ok()
+#[get("/get/<id>", format = "application/json")]
+fn api_get_by_id(id: GameId) -> std::io::Result<Json<GameData>> {
+    let path = id.file_path();
+    dbg!(&path);
+    let read = read_to_string(path)?;
+    let data = serde_json::from_str(&read)?;
+    Ok(Json(data))
 }
 
 #[catch(404)]
@@ -82,7 +87,7 @@ fn rocket() -> _ {
             address,
             ..Default::default()
         })
-        .mount("/", FileServer::from(app_dir))
         .mount("/api", routes![api_save, api_list, api_get_by_id])
+        .mount("/", FileServer::from(app_dir))
         .register("/", catchers![not_found])
 }
