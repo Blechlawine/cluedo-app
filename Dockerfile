@@ -8,8 +8,6 @@
 
 FROM messense/rust-musl-cross:armv7-musleabihf as backend-builder
 
-RUN apt update && apt install -y pkg-config libssl-dev
-
 WORKDIR /home/rust/cluedo_app
 # Only build the dependencies, so docker can cache them
 COPY ./server/Cargo.toml ./Cargo.toml
