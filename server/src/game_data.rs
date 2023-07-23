@@ -1,4 +1,6 @@
 use chrono::{DateTime, Utc};
+use rocket::tokio::fs::File;
+use rocket::tokio::io::AsyncWriteExt;
 use serde::{Deserialize, Serialize};
 
 use crate::game_id::GameId;
@@ -19,6 +21,15 @@ impl GameData {
             timestamp: Utc::now().to_rfc3339(),
             data,
         }
+    }
+
+    pub async fn save(self) -> std::io::Result<Self> {
+        // save GameData to file
+        let mut file = File::create(self.id.file_path()).await?;
+        file.write_all(serde_json::to_string(&self)?.as_bytes())
+            .await?;
+
+        Ok(self)
     }
 }
 

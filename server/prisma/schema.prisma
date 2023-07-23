@@ -1,0 +1,23 @@
+datasource db {
+    provider = "sqlite"
+    url      = "file:../upload/db/dev.db"
+}
+
+generator client {
+    provider = "cargo prisma"
+    output   = "../src/db.rs"
+}
+
+model User {
+    id         String   @id @default(uuid())
+    games      Game[]
+    created_at DateTime @default(now())
+}
+
+model Game {
+    id         String   @id @default(uuid())
+    user_id    String
+    user       User     @relation(fields: [user_id], references: [id])
+    file_path  String
+    created_at DateTime @default(now())
+}

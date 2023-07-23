@@ -7,14 +7,19 @@ edition = "2021"
 name = "cluedo_app"
 path = "src/main.rs"
 
+[workspace]
+members = ["prisma-cli"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 chrono = { version = "0.4.23", features = ["serde"] }
 dotenv = "0.15.0"
-# Rocket is the webserver
 rocket = { version = "0.5.0-rc.2", features = ["json", "secrets"] }
-# Serde for deserialization and serialization
 serde = { version = "1.0.152", features = ["derive", "rc"] }
 serde_json = "1.0.103"
 ulid = "1.0.0"
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.8", features = [
+    "migrations",
+    "sqlite",
+] }

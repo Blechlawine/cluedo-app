@@ -16,3 +16,5 @@ Cargo.lock
 upload
 
 .env
+
+src/db.rs

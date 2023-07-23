@@ -21,6 +21,7 @@ RUN cargo build --release
 # this line prevents the dependencies from being built again (when src/*.rs files change)
 RUN rm ./target/armv7-unknown-linux-musleabihf/release/deps/cluedo_app*
 COPY ./server .
+RUN cargo prisma generate
 RUN cargo build --release
 
 # ------------------------------------------------------------------------------

@@ -5,13 +5,12 @@ use std::env;
 use std::path::{Path, PathBuf};
 use ulid::Ulid;
 
-#[derive(UriDisplayPath, Serialize, Deserialize, Debug)]
+#[derive(UriDisplayPath, Serialize, Deserialize, Debug, Clone)]
 pub struct GameId(String);
 
 impl GameId {
     pub fn new() -> Self {
-        let id = Ulid::new();
-        GameId(id.to_string())
+        Self::default()
     }
 
     pub fn file_path(&self) -> PathBuf {
@@ -22,9 +21,16 @@ impl GameId {
     }
 }
 
-impl Into<String> for GameId {
-    fn into(self) -> String {
-        self.0
+impl Default for GameId {
+    fn default() -> Self {
+        let id = Ulid::new();
+        GameId(id.to_string())
+    }
+}
+
+impl From<GameId> for String {
+    fn from(val: GameId) -> Self {
+        val.0
     }
 }
 
