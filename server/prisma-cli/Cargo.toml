@@ -7,3 +7,4 @@ edition = "2021"
 prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.8", features = [
     "migrations",
 ] }
+openssl = { version = "0.10.35", features = ["vendored"] }
