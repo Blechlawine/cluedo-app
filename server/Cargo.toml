@@ -23,4 +23,3 @@ prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust
     "migrations",
     "sqlite",
 ] }
-openssl-src = { version = "300.1.2+3.1.1" }
