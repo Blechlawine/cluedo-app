@@ -11,9 +11,12 @@ FROM messense/rust-musl-cross:armv7-musleabihf as backend-builder
 WORKDIR /home/rust/cluedo_app
 # Only build the dependencies, so docker can cache them
 COPY ./server/Cargo.toml ./Cargo.toml
+COPY ./server/prisma-cli/Cargo.toml ./prisma-cli/Cargo.toml
 RUN mkdir src/
+RUN mkdir prisma-cli/src
 
 RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
+RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > prisma-cli/src/main.rs
 
 RUN cargo build --release
 
