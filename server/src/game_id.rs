@@ -5,7 +5,7 @@ use std::env;
 use std::path::{Path, PathBuf};
 use ulid::Ulid;
 
-#[derive(UriDisplayPath, Serialize, Deserialize)]
+#[derive(UriDisplayPath, Serialize, Deserialize, Debug)]
 pub struct GameId(String);
 
 impl GameId {
@@ -19,6 +19,12 @@ impl GameId {
         let root = Path::new(&upload_dir);
         let own_path = Path::new(self.0.as_str());
         root.join(own_path)
+    }
+}
+
+impl Into<String> for GameId {
+    fn into(self) -> String {
+        self.0
     }
 }
 
