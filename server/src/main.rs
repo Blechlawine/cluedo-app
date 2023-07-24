@@ -2,47 +2,52 @@
 extern crate rocket;
 
 mod game_data;
-mod game_id;
+mod user;
 
 use dotenv::dotenv;
-use game_data::GameData;
-use game_id::GameId;
+use rocket::fairing::AdHoc;
 use rocket::fs::FileServer;
+use rocket::http::Cookie;
 use rocket::serde::json::Json;
-use rocket::tokio::fs::File;
-use rocket::tokio::io::AsyncWriteExt;
+use rocket::time::{Duration, OffsetDateTime};
 use rocket::{Config, State};
 use std::env;
 use std::fs::read_to_string;
 use std::net::Ipv4Addr;
 use std::path::Path;
 
-use crate::game_data::UploadData;
+use crate::game_data::{GameData, UploadData};
+use crate::user::User;
 
 struct AppState {
     upload_dir: String,
 }
 
 #[post("/save", data = "<upload_data>", format = "application/json")]
-async fn api_save(upload_data: Json<UploadData>) -> std::io::Result<String> {
-    let data = upload_data.into_inner();
-    let game_data = GameData::from(data);
-    // save GameData to file
-    let mut file = File::create(game_data.id.file_path()).await?;
-    file.write_all(serde_json::to_string(&game_data)?.as_bytes())
+async fn api_save(
+    upload_data: Json<UploadData>,
+    user: &User,
+    state: &State<AppState>,
+) -> std::io::Result<String> {
+    let upload_data = upload_data.into_inner();
+    let game_data = GameData::new(upload_data.name, upload_data.data, user.id.clone())
+        .save(&state.upload_dir)
         .await?;
 
     Ok(uri!(api_get_by_id(game_data.id)).to_string())
 }
 
 #[get("/list", format = "application/json")]
-fn api_list(state: &State<AppState>) -> std::io::Result<Json<Vec<GameData>>> {
-    // list all files in upload directory
+async fn api_list(state: &State<AppState>, user: &User) -> std::io::Result<Json<Vec<GameData>>> {
+    // list all files in upload directory belonging to the current user
     let root = Path::new(&state.upload_dir);
     let files = root
         .read_dir()?
+        .filter_map(|f| f.ok())
+        .filter(|f| f.file_type().unwrap().is_file())
+        .filter(|f| f.file_name().to_string_lossy().split('-').last() == Some(user.id.as_str()))
         .map(|f| {
-            let file_name = f.unwrap().path();
+            let file_name = f.path();
             let read = read_to_string(file_name).unwrap();
             let data: GameData = serde_json::from_str(&read).unwrap();
             data
@@ -53,12 +58,16 @@ fn api_list(state: &State<AppState>) -> std::io::Result<Json<Vec<GameData>>> {
 }
 
 #[get("/get/<id>", format = "application/json")]
-fn api_get_by_id(id: GameId) -> std::io::Result<Json<GameData>> {
-    let path = id.file_path();
-    dbg!(&path);
-    let read = read_to_string(path)?;
-    let data = serde_json::from_str(&read)?;
-    Ok(Json(data))
+async fn api_get_by_id(id: String, user: &User, state: &State<AppState>) -> Option<Json<GameData>> {
+    let path = Path::new(&state.upload_dir).join(GameData::file_name(id, user.id.clone()));
+    let read = read_to_string(path).unwrap();
+    let data: GameData = serde_json::from_str(&read).unwrap();
+
+    if data.user_id != user.id {
+        return None;
+    }
+
+    Some(Json(data))
 }
 
 #[catch(404)]
@@ -67,7 +76,7 @@ fn not_found() -> Json<&'static str> {
 }
 
 #[launch]
-fn rocket() -> _ {
+async fn rocket() -> _ {
     dotenv().ok();
 
     let port = env::var("PORT")
@@ -80,6 +89,7 @@ fn rocket() -> _ {
         .unwrap();
     let app_dir = env::var("APP_DIR").unwrap_or("/srv/app".to_owned());
     let upload_dir = env::var("UPLOAD_DIR").unwrap_or("/srv/upload".to_owned());
+
     rocket::build()
         .manage(AppState { upload_dir })
         .configure(Config {
@@ -87,6 +97,17 @@ fn rocket() -> _ {
             address,
             ..Default::default()
         })
+        .attach(AdHoc::on_request("set-auth-cookie", |req, _| {
+            Box::pin(async move {
+                let user = req.guard::<&User>().await.unwrap();
+                let cookie_to_set = Cookie::build("cluedo-auth", user.id.clone())
+                    .http_only(true)
+                    .expires(OffsetDateTime::now_utc() + Duration::weeks(52))
+                    .finish();
+
+                req.cookies().add(cookie_to_set);
+            })
+        }))
         .mount("/api", routes![api_save, api_list, api_get_by_id])
         .mount("/", FileServer::from(app_dir))
         .register("/", catchers![not_found])
