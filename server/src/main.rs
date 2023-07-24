@@ -5,6 +5,7 @@ mod game_data;
 mod user;
 
 use dotenv::dotenv;
+use rocket::config::SecretKey;
 use rocket::fairing::AdHoc;
 use rocket::fs::FileServer;
 use rocket::http::Cookie;
@@ -89,12 +90,14 @@ async fn rocket() -> _ {
         .unwrap();
     let app_dir = env::var("APP_DIR").unwrap_or("/srv/app".to_owned());
     let upload_dir = env::var("UPLOAD_DIR").unwrap_or("/srv/upload".to_owned());
+    let secret_key = env::var("SECRET_KEY").expect("Environment variable SECRET_KEY must be set");
 
     rocket::build()
         .manage(AppState { upload_dir })
         .configure(Config {
             port,
             address,
+            secret_key: SecretKey::from(secret_key.as_bytes()),
             ..Default::default()
         })
         .attach(AdHoc::on_request("set-auth-cookie", |req, _| {
