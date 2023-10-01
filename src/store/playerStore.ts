@@ -32,7 +32,7 @@ const usePlayers = defineStore<"players", IState, TGetters, IActions>("players",
             }
         },
         deleteByID(id) {
-            this.players = this.players.filter(p => p.id !== id);
+            this.players = this.players.filter((p) => p.id !== id);
         },
     },
 });

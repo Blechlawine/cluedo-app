@@ -21,6 +21,6 @@ const useLanguages = defineStore(
         persist: {
             paths: ["locale"],
         },
-    }
+    },
 );
 export default useLanguages;
