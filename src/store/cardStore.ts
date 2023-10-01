@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { CardInput, CardOutput, CardValidator } from "../types/validators";
+import { z } from "zod";
 interface IState {
     cards: CardOutput[];
 }
@@ -11,8 +12,10 @@ type TGetters = {
 };
 interface IActions {
     upsert: (card: CardInput) => void;
+    insertMany: (cards: CardInput[]) => void;
     deleteByID: (id: string) => void;
 }
+// TODO: switch to composition api store
 const useCards = defineStore<"cards", IState, TGetters, IActions>("cards", {
     state: () => ({
         cards: [],
@@ -29,12 +32,18 @@ const useCards = defineStore<"cards", IState, TGetters, IActions>("cards", {
             const parsed = CardValidator.safeParse(card);
             if (parsed.success) {
                 const data = parsed.data;
-                let temp = this.cards.find((c) => c.id === data.id);
+                const temp = this.cards.find((c) => c.id === data.id);
                 if (temp) {
                     Object.assign(temp, data);
                 } else {
                     this.cards.push(data);
                 }
+            }
+        },
+        insertMany(cards) {
+            const parsed = z.array(CardValidator).safeParse(cards);
+            if (parsed.success) {
+                this.cards.push(...parsed.data);
             }
         },
         deleteByID(id) {

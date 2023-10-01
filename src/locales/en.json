@@ -46,5 +46,34 @@
     "upload": "Upload",
     "id": "ID",
     "already_saved": "Already saved",
-    "open": "Open"
+    "open": "Open",
+    "cardName": {
+        "suspect": {
+            "red": "Miss Scarlett",
+            "blue": "Solicitor Peacock",
+            "green": "Reverend Green",
+            "yellow": "Colonel Mustard",
+            "white": "Mrs. White",
+            "purple": "Professor Plum"
+        },
+        "weapon": {
+            "dagger": "Dagger",
+            "pipe": "Lead piping",
+            "revolver": "Revolver",
+            "spanner": "Spanner",
+            "light": "Candlestick",
+            "rope": "Rope"
+        },
+        "location": {
+            "hall": "Hall",
+            "lounge": "Lounge",
+            "diningroom": "Dining room",
+            "kitchen": "Kitchen",
+            "conservatory": "Conservatory",
+            "ballroom": "Ballroom",
+            "billiardroom": "Billiard room",
+            "library": "Library",
+            "study": "Study"
+        }
+    }
 }

@@ -46,5 +46,34 @@
     "upload": "Hochladen",
     "id": "ID",
     "already_saved": "Schon gespeichert",
-    "open": "Öffnen"
+    "open": "Öffnen",
+    "cardName": {
+        "suspect": {
+            "red": "Fräulein Gloria",
+            "blue": "Baronin von Porz",
+            "green": "Reverend Grün",
+            "yellow": "Oberst von Gatow",
+            "white": "Frau Weiß",
+            "purple": "Professor Bloom"
+        },
+        "weapon": {
+            "dagger": "Dolch",
+            "pipe": "Heizungsrohr",
+            "revolver": "Pistole",
+            "spanner": "Rohrzange",
+            "light": "Leuchter",
+            "rope": "Seil"
+        },
+        "location": {
+            "hall": "Halle",
+            "lounge": "Salon",
+            "diningroom": "Speisezimmer",
+            "kitchen": "Kueche",
+            "conservatory": "Wintergarten",
+            "ballroom": "Musikzimmer",
+            "billiardroom": "Billiardzimmer",
+            "library": "Bibliothek",
+            "study": "Arbeitszimmer"
+        }
+    }
 }

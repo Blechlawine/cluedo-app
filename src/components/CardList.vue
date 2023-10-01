@@ -39,12 +39,25 @@
             </tr>
         </Draggable>
     </table>
+    <div class="p-2 flex flex-row gap-2 items-center justify-center" v-if="!CardStore.cards.length">
+        <!-- <button @click="addSuperCluedoCards" class="btn btn-sm">
+            <Icon name="md-add"></Icon>
+            Super Cluedo
+        </button> -->
+        <button @click="addCluedoCards" class="btn btn-sm">
+            <Icon name="md-add"></Icon>
+            Cluedo
+        </button>
+    </div>
 </template>
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import useCards from "../store/cardStore";
 import { VueDraggableNext as Draggable } from "vue-draggable-next";
+import { CardInput } from "../types/validators";
 
 const CardStore = useCards();
+const { t } = useI18n();
 
 const props = defineProps({
     label: {
@@ -64,4 +77,32 @@ const onEditClick = (id: string) => {
 const onDeleteClick = (id: string) => {
     CardStore.deleteByID(id);
 };
+
+function addSuperCluedoCards() {}
+function addCluedoCards() {
+    const cards = [
+        { name: t("cardName.suspect.red"), category: "suspect" },
+        { name: t("cardName.suspect.blue"), category: "suspect" },
+        { name: t("cardName.suspect.green"), category: "suspect" },
+        { name: t("cardName.suspect.yellow"), category: "suspect" },
+        { name: t("cardName.suspect.white"), category: "suspect" },
+        { name: t("cardName.suspect.purple"), category: "suspect" },
+        { name: t("cardName.weapon.dagger"), category: "weapon" },
+        { name: t("cardName.weapon.pipe"), category: "weapon" },
+        { name: t("cardName.weapon.revolver"), category: "weapon" },
+        { name: t("cardName.weapon.spanner"), category: "weapon" },
+        { name: t("cardName.weapon.light"), category: "weapon" },
+        { name: t("cardName.weapon.rope"), category: "weapon" },
+        { name: t("cardName.location.hall"), category: "location" },
+        { name: t("cardName.location.lounge"), category: "location" },
+        { name: t("cardName.location.diningroom"), category: "location" },
+        { name: t("cardName.location.kitchen"), category: "location" },
+        { name: t("cardName.location.conservatory"), category: "location" },
+        { name: t("cardName.location.ballroom"), category: "location" },
+        { name: t("cardName.location.billiardroom"), category: "location" },
+        { name: t("cardName.location.library"), category: "location" },
+        { name: t("cardName.location.study"), category: "location" },
+    ] as CardInput[];
+    CardStore.insertMany(cards);
+}
 </script>
