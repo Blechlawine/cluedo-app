@@ -1,5 +1,5 @@
 <template>
-    <span class="btn btn-sm btn-square">
+    <span v-if="$route.path !== '/'" class="btn btn-sm btn-square">
         <label for="main-drawer" class="cursor-pointer">
             <Icon name="md-close"></Icon>
         </label>
