@@ -90,7 +90,7 @@
                                     PlayerStore.players
                                         .find((p) => p.id == question.askingPlayerId)
                                         ?.name.substring(0, 1)
-                                }}
+                                }}{{ index + 1 }}
                             </span>
                         </template>
                     </div>
