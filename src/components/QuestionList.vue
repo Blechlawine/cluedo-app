@@ -1,5 +1,5 @@
 <template>
-    <table class="table table-compact w-full table-fixed">
+    <table class="table table-pin-rows w-full table-fixed">
         <thead>
             <tr>
                 <th class="w-max">{{ $t("timestamp") }}</th>

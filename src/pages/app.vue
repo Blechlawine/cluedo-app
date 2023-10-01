@@ -8,7 +8,6 @@ import { ref } from "vue";
 import useQuestions from "../store/questionStore";
 import MainTable from "../components/MainTable.vue";
 import Toolbar from "../components/Toolbar.vue";
-import useGameDataStore from "../store/gameDataStore";
 
 const QuestionStore = useQuestions();
 
@@ -31,7 +30,7 @@ const onQuestionListEditItem = (questionId: string) => {
 <template>
     <div class="drawer">
         <input type="checkbox" class="drawer-toggle" id="main-drawer" />
-        <div class="drawer-content grid">
+        <div class="drawer-content grid h-screen overflow-hidden">
             <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
                 <label for="main-drawer" class="btn btn-sm btn-square drawer-button">
                     <Icon name="md-menu"></Icon>
@@ -41,7 +40,7 @@ const onQuestionListEditItem = (questionId: string) => {
                     {{ $t("question") }}
                 </label>
             </div>
-            <main class="p-2">
+            <main class="overflow-y-auto">
                 <MainTable />
             </main>
             <div
@@ -62,7 +61,7 @@ const onQuestionListEditItem = (questionId: string) => {
                 />
             </div>
         </div>
-        <div class="drawer-side w-full">
+        <div class="drawer-side w-full z-10">
             <label for="main-drawer" class="drawer-overlay"></label>
             <div class="grid w-full h-full bg-base-100 lg:w-96">
                 <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
