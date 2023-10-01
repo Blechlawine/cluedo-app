@@ -1,4 +1,9 @@
 <template>
+    <span class="btn btn-sm btn-square">
+        <label for="main-drawer" class="cursor-pointer">
+            <Icon name="md-close"></Icon>
+        </label>
+    </span>
     <span
         v-if="$route.path !== '/'"
         class="tooltip tooltip-right hover:z-50"
