@@ -3,13 +3,13 @@
         <thead>
             <tr>
                 <th class="w-max">{{ $t("timestamp") }}</th>
-                <th class="">{{ $t("asking") }}</th>
-                <th class="">{{ $t("answering") }}</th>
-                <th class="w-min">
+                <th class="w-min">{{ $t("asking") }}</th>
+                <th class="w-min">{{ $t("answering") }}</th>
+                <th class="w-max">
                     {{ $t("suspect") }} + {{ $t("weapon") }} + {{ $t("location") }}
                 </th>
-                <th class="">{{ $t("edit") }}</th>
-                <th class="">{{ $t("delete") }}</th>
+                <th class="w-min">{{ $t("edit") }}</th>
+                <th class="w-min">{{ $t("delete") }}</th>
             </tr>
         </thead>
         <tr v-for="question in QuestionStore.questions" class="hover" :key="question.id">
