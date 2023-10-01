@@ -63,7 +63,7 @@ const onQuestionListEditItem = (questionId: string) => {
         </div>
         <div class="drawer-side w-full z-10">
             <label for="main-drawer" class="drawer-overlay"></label>
-            <div class="grid w-full h-full bg-base-100 lg:w-96">
+            <div class="grid w-full h-full bg-base-100 lg:w-96 !transition-transform">
                 <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
                     <Toolbar />
                     <div class="flex-grow"></div>
