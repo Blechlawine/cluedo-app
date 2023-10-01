@@ -7,7 +7,7 @@ mod user;
 use dotenv::dotenv;
 use rocket::config::SecretKey;
 use rocket::fairing::AdHoc;
-use rocket::fs::FileServer;
+use rocket::fs::{FileServer, NamedFile};
 use rocket::http::Cookie;
 use rocket::serde::json::Json;
 use rocket::time::{Duration, OffsetDateTime};
@@ -22,6 +22,7 @@ use crate::user::User;
 
 struct AppState {
     upload_dir: String,
+    app_dir: String,
 }
 
 #[post("/save", data = "<upload_data>", format = "application/json")]
@@ -71,6 +72,11 @@ async fn api_get_by_id(id: String, user: &User, state: &State<AppState>) -> Opti
     Some(Json(data))
 }
 
+#[get("/app")]
+async fn index_html(state: &State<AppState>) -> Option<NamedFile> {
+    NamedFile::open(Path::new(&state.app_dir).join("index.html")).await.ok()
+}
+
 #[catch(404)]
 fn not_found() -> Json<&'static str> {
     Json("Not found")
@@ -93,7 +99,7 @@ async fn rocket() -> _ {
     let secret_key = env::var("SECRET_KEY").expect("Environment variable SECRET_KEY must be set");
 
     rocket::build()
-        .manage(AppState { upload_dir })
+        .manage(AppState { upload_dir, app_dir: app_dir.clone() })
         .configure(Config {
             port,
             address,
@@ -113,5 +119,6 @@ async fn rocket() -> _ {
         }))
         .mount("/api", routes![api_save, api_list, api_get_by_id])
         .mount("/", FileServer::from(app_dir))
+        .mount("/", routes![index_html])
         .register("/", catchers![not_found])
 }
