@@ -20,8 +20,11 @@
                     <span class="label-text">{{ $t("answering-player") }}</span>
                 </label>
                 <select class="select select-bordered" v-model="answeringPlayerId">
-                    <option disabled selected :value="null">
+                    <option disabled selected :value="undefined">
                         {{ $t("pick-one-player") }}
+                    </option>
+                    <option :value="null">
+                        {{ $t("no-player") }}
                     </option>
                     <option v-for="player in PlayerStore.players" :key="player.id" :value="player.id">
                         {{ player.name }}
@@ -130,7 +133,7 @@ watch(
 );
 
 const askingPlayerId = ref<string | null>(null);
-const answeringPlayerId = ref<string | null>(null);
+const answeringPlayerId = ref<string | null | undefined>(undefined);
 const suspectCardId = ref<string | null>(null);
 const weaponCardId = ref<string | null>(null);
 const locationCardId = ref<string | null>(null);
@@ -154,7 +157,8 @@ const saveBtnClick = (event: Event) => {
         !askingPlayerId.value ||
         !suspectCardId.value ||
         !weaponCardId.value ||
-        !locationCardId.value
+        !locationCardId.value ||
+        answeringPlayerId.value === undefined
     ) {
         event.preventDefault();
         // TODO: Show alert
@@ -162,25 +166,30 @@ const saveBtnClick = (event: Event) => {
         const askingPlayerIndex = PlayerStore.players.findIndex(
             (p) => p.id === askingPlayerId.value
         );
-        const answeringPlayerIndex = PlayerStore.players.findIndex(
-            (p) => p.id === answeringPlayerId.value
-        );
-        let emptyPlayers = [];
-        // Adapted from https://stackoverflow.com/a/61928036
-        let end = answeringPlayerIndex;
-        let start = askingPlayerIndex + 1;
-        if (answeringPlayerIndex < askingPlayerIndex) {
-            end += PlayerStore.players.length;
+        let emptyPlayers: string[] = [];
+        if (answeringPlayerId.value === null) {
+            emptyPlayers = PlayerStore.players.filter(p => p.id !== askingPlayerId.value).map(p => p.id);
+        } else {
+            const answeringPlayerIndex = PlayerStore.players.findIndex(
+                (p) => p.id === answeringPlayerId.value
+            );
+            let tempEmptyPlayers: number[] = [];
+            // Adapted from https://stackoverflow.com/a/61928036
+            let end = answeringPlayerIndex;
+            let start = askingPlayerIndex + 1;
+            if (answeringPlayerIndex < askingPlayerIndex) {
+                end += PlayerStore.players.length;
+            }
+            for (let i = start; i < end; i++) {
+                tempEmptyPlayers.push(i % PlayerStore.players.length);
+            }
+            emptyPlayers = tempEmptyPlayers.map((index) => PlayerStore.players[index].id);
         }
-        for (let i = start; i < end; i++) {
-            emptyPlayers.push(i % PlayerStore.players.length);
-        }
-        emptyPlayers = emptyPlayers.map((index) => PlayerStore.players[index].id);
         emit("save", {
             ...props.presetValues,
             askingPlayerId: askingPlayerId.value,
-            answeringPlayerId: answeringPlayerId.value ?? null,
-            playersThatDidntHaveAnythingIds: emptyPlayers, // TODO
+            answeringPlayerId: answeringPlayerId.value,
+            playersThatDidntHaveAnythingIds: emptyPlayers,
             suspectCardId: suspectCardId.value,
             weaponCardId: weaponCardId.value,
             locationCardId: locationCardId.value,
@@ -189,6 +198,29 @@ const saveBtnClick = (event: Event) => {
     }
 };
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
