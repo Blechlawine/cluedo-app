@@ -11,6 +11,7 @@ type TGetters = {
     getByPlayerIdAndCardId: (
         state: IState,
     ) => (playerId: string, cardId: string) => PlayerCardRelationOutput | undefined;
+    getByCardId: (state: IState) => (cardId: string) => PlayerCardRelationOutput[] | [];
 };
 interface IActions {
     upsert: (PlayerCardRelation: PlayerCardRelationInput) => void;
@@ -27,6 +28,8 @@ const usePlayerCardRelations = defineStore<"playerCardRelations", IState, TGette
                 state.playerCardRelations.find(
                     (p) => p.playerId === playerId && p.cardId === cardId,
                 ),
+            getByCardId: (state) => (cardId) =>
+                state.playerCardRelations.filter((p) => p.cardId === cardId),
         },
         actions: {
             upsert(playerCardRelation) {
