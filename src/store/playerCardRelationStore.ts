@@ -33,7 +33,7 @@ const usePlayerCardRelations = defineStore<"playerCardRelations", IState, TGette
                 const parsed = PlayerCardRelationValidator.safeParse(playerCardRelation);
                 if (parsed.success) {
                     const data = parsed.data;
-                    let temp = this.playerCardRelations.find(
+                    const temp = this.playerCardRelations.find(
                         (c) => c.playerId === data.playerId && c.cardId === data.cardId,
                     );
                     if (temp) {
