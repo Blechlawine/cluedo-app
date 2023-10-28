@@ -14,9 +14,10 @@
         <tr v-for="question in QuestionStore.questions" class="hover" :key="question.id">
             <QuestionListRow :question="question"></QuestionListRow>
             <td class="flex flex-row gap-2 items-center">
-                <label :for="props.label" class="btn btn-sm btn-square btn-ghost" @click="() => onEditClick(question.id)">
+                <button :onclick="`${props.label}.showModal()`" class="btn btn-sm btn-square btn-ghost"
+                    @click="() => onEditClick(question.id)">
                     <Icon name="md-edit" />
-                </label>
+                </button>
                 <button class="btn btn-sm btn-square btn-ghost hover:btn-error" @click="() => onDeleteClick(question.id)">
                     <Icon name="md-delete" />
                 </button>
@@ -49,6 +50,8 @@ const onDeleteClick = (id: string) => {
     QuestionStore.deleteByID(id);
 };
 </script>
+
+
 
 
 
