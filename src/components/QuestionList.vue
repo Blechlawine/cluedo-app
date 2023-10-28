@@ -8,26 +8,16 @@
                 <th class="w-max">
                     {{ $t("suspect") }} + {{ $t("weapon") }} + {{ $t("location") }}
                 </th>
-                <th class="w-min">{{ $t("edit") }}</th>
-                <th class="w-min">{{ $t("delete") }}</th>
+                <th class="w-min">{{ $t("edit") }} / {{ $t("delete") }}</th>
             </tr>
         </thead>
         <tr v-for="question in QuestionStore.questions" class="hover" :key="question.id">
             <QuestionListRow :question="question"></QuestionListRow>
-            <td>
-                <label
-                    :for="props.label"
-                    class="btn btn-sm btn-square btn-ghost"
-                    @click="() => onEditClick(question.id)"
-                >
+            <td class="flex flex-row gap-2 items-center">
+                <label :for="props.label" class="btn btn-sm btn-square btn-ghost" @click="() => onEditClick(question.id)">
                     <Icon name="md-edit" />
                 </label>
-            </td>
-            <td>
-                <button
-                    class="btn btn-sm btn-square btn-ghost hover:btn-error"
-                    @click="() => onDeleteClick(question.id)"
-                >
+                <button class="btn btn-sm btn-square btn-ghost hover:btn-error" @click="() => onDeleteClick(question.id)">
                     <Icon name="md-delete" />
                 </button>
             </td>
@@ -59,3 +49,10 @@ const onDeleteClick = (id: string) => {
     QuestionStore.deleteByID(id);
 };
 </script>
+
+
+
+
+
+
+
