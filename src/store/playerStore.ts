@@ -1,39 +1,42 @@
 import { defineStore } from "pinia";
-import { PlayerInput, PlayerOutput, PlayerValidator } from "../types/validators";
-interface IState {
-    players: PlayerOutput[];
-}
-type TGetters = {
-    getByID: (state: IState) => (id: string) => PlayerOutput | undefined;
-};
-interface IActions {
-    upsert: (player: PlayerInput) => void;
-    deleteByID: (id: string) => void;
-}
-const usePlayers = defineStore<"players", IState, TGetters, IActions>("players", {
-    state: () => ({
-        players: [],
-    }),
-    persist: true,
-    getters: {
-        getByID: (state) => (id) => state.players.find((p) => p.id === id),
-    },
-    actions: {
-        upsert(player) {
+import { type PlayerInput, type PlayerOutput, PlayerValidator } from "../types/validators";
+import { ref } from "vue";
+
+const usePlayers = defineStore(
+    "players",
+    () => {
+        const players = ref<PlayerOutput[]>([]);
+
+        function upsert(player: PlayerInput) {
             const parsed = PlayerValidator.safeParse(player);
             if (parsed.success) {
                 const data = parsed.data;
-                let temp = this.players.find((p) => p.id === data.id);
+                const temp = players.value.find((p) => p.id === data.id);
                 if (temp) {
                     Object.assign(temp, data);
                 } else {
-                    this.players.push(data);
+                    players.value.push(data);
                 }
             }
-        },
-        deleteByID(id) {
-            this.players = this.players.filter((p) => p.id !== id);
-        },
+        }
+
+        function getByID(id: string): PlayerOutput | undefined {
+            return players.value.find((p) => p.id === id);
+        }
+
+        function deleteByID(id: string) {
+            players.value = players.value.filter((p) => p.id !== id);
+        }
+
+        return {
+            players,
+            upsert,
+            getByID,
+        };
     },
-});
+    {
+        persist: true,
+    },
+);
+
 export default usePlayers;

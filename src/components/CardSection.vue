@@ -25,7 +25,6 @@ import useCards from "../store/cardStore";
 import type { CardInput, CardOutput } from "../types/validators";
 import CardList from "./CardList.vue";
 import CardModal from "./CardModal.vue";
-import { useI18n } from "vue-i18n";
 
 const cardModalOpen = ref(false);
 const cardModalPresetValues = ref<CardOutput | null>(null);
