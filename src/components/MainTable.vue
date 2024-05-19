@@ -51,14 +51,14 @@
                         <button
                             class="btn btn-sm btn-square hover:btn-success btn-ghost tooltip hover:z-50 normal-case"
                             :data-tip="$t('has-this-card')"
-                            @click="() => upsertPlayerCardRelation(player.id, card.id, true)"
+                            @click="upsertPlayerCardRelation(player.id, card.id, true)"
                         >
                             <div class="i-tabler-check"></div>
                         </button>
                         <button
                             class="btn btn-sm btn-square hover:btn-error btn-ghost tooltip hover:z-50 normal-case"
                             :data-tip="$t('does-not-have-this-card')"
-                            @click="() => upsertPlayerCardRelation(player.id, card.id, false)"
+                            @click="upsertPlayerCardRelation(player.id, card.id, false)"
                         >
                             <div class="i-tabler-x"></div>
                         </button>
@@ -110,7 +110,7 @@ const PlayerStore = usePlayers();
 const QuestionStore = useQuestions();
 const PlayerCardRelationStore = usePlayerCardRelations();
 
-const getTdClasses = (playerId: string, cardId: string) => {
+function getTdClasses(playerId: string, cardId: string) {
     const relation = PlayerCardRelationStore.getByPlayerIdAndCardId(playerId, cardId);
     if (relation && relation.value) {
         return "bg-success text-success-content";
@@ -119,7 +119,7 @@ const getTdClasses = (playerId: string, cardId: string) => {
     } else {
         return "bg-warning text-warning-content";
     }
-};
+}
 
 function getTrClasses(cardId: string) {
     const relations = PlayerCardRelationStore.getByCardId(cardId);
@@ -132,11 +132,11 @@ function getTrClasses(cardId: string) {
     return "";
 }
 
-const upsertPlayerCardRelation = (playerId: string, cardId: string, value: boolean) => {
+function upsertPlayerCardRelation(playerId: string, cardId: string, value: boolean) {
     PlayerCardRelationStore.upsert({
         playerId,
         cardId,
         value,
     });
-};
+}
 </script>
