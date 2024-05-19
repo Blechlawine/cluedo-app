@@ -24,6 +24,8 @@
     },
     "devDependencies": {
         "@biomejs/biome": "^1.2.2",
+        "@egoist/tailwindcss-icons": "^1.8.0",
+        "@iconify-json/tabler": "^1.1.112",
         "@vitejs/plugin-vue": "^3.0.3",
         "autoprefixer": "^10.4.8",
         "daisyui": "^3.2.1",

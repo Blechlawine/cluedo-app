@@ -32,6 +32,7 @@ const usePlayers = defineStore(
             players,
             upsert,
             getByID,
+            deleteByID,
         };
     },
     {

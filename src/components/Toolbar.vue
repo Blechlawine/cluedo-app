@@ -1,7 +1,7 @@
 <template>
     <span v-if="$route.path !== '/'" class="btn btn-sm btn-square">
         <label for="main-drawer" class="cursor-pointer">
-            <Icon name="md-close"></Icon>
+            <div class="i-tabler-x"></div>
         </label>
     </span>
     <span
@@ -10,12 +10,12 @@
         :data-tip="$t('back_to_overview')"
     >
         <router-link to="/" class="btn btn-sm btn-square">
-            <Icon name="md-arrowback"></Icon>
+            <div class="i-tabler-arrow-back"></div>
         </router-link>
     </span>
     <span v-else-if="GameDataStore.isGameGoing" class="tooltip tooltip-right hover:z-50">
         <router-link to="/app" class="btn btn-sm btn-square">
-            <Icon name="md-arrowforward"></Icon>
+            <div class="i-tabler-arrow-forward"></div>
         </router-link>
     </span>
     <span class="tooltip tooltip-right tooltip-error hover:z-50" :data-tip="$t('new_game_tooltip')">
@@ -23,7 +23,7 @@
             class="btn btn-sm btn-square text-error hover:btn-error"
             onclick="newGameModal.showModal()"
         >
-            <Icon name="md-noteadd"></Icon>
+            <div class="i-tabler-file-plus"></div>
         </button>
     </span>
     <SaveGameButton v-if="GameDataStore.isGameGoing" />

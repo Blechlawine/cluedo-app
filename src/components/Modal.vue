@@ -3,7 +3,7 @@
         <dialog :id="name" class="modal">
             <form method="dialog" class="modal-box flex flex-col gap-2">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                    <Icon name="md-close"></Icon>
+                    <div class="i-tabler-x"></div>
                 </button>
                 <slot />
                 <div class="modal-action">

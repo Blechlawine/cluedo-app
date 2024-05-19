@@ -5,7 +5,7 @@
         >
             <h1>{{ $t("cards") }}</h1>
             <label for="cardModal" class="btn btn-sm modal-button flex gap-1 pl-2">
-                <Icon name="md-add"></Icon>
+                <div class="i-tabler-plus"></div>
                 {{ $t("card") }}
             </label>
         </div>

@@ -33,23 +33,35 @@ const onQuestionListEditItem = (questionId: string) => {
         <div class="drawer-content grid h-screen overflow-hidden">
             <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
                 <label for="main-drawer" class="btn btn-sm btn-square drawer-button">
-                    <Icon name="md-menu"></Icon>
+                    <div class="i-tabler-menu-2"></div>
                 </label>
-                <button onclick="questionModal.showModal()" class="btn btn-sm modal-button flex gap-1 pl-2">
-                    <Icon name="md-add"></Icon>
+                <button
+                    onclick="questionModal.showModal()"
+                    class="btn btn-sm modal-button flex gap-1 pl-2"
+                >
+                    <div class="i-tabler-plus"></div>
                     {{ $t("question") }}
                 </button>
             </div>
             <main class="overflow-y-auto">
                 <MainTable />
             </main>
-            <div class="questions flex flex-col sm:border-l-2 max-sm:border-t-2 border-base-300 overflow-auto">
-                <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 bg-base-100">
+            <div
+                class="questions flex flex-col sm:border-l-2 max-sm:border-t-2 border-base-300 overflow-auto"
+            >
+                <div
+                    class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 bg-base-100"
+                >
                     <h1>{{ $t("questions") }}</h1>
                 </div>
                 <QuestionList label="questionModal" @edit-item="onQuestionListEditItem" />
-                <QuestionModal :open="questionModalOpen" label="questionModal" @save="onQuestionModalSave"
-                    @close="onQuestionModalClose" :preset-values="questionModalPresetValues" />
+                <QuestionModal
+                    :open="questionModalOpen"
+                    label="questionModal"
+                    @save="onQuestionModalSave"
+                    @close="onQuestionModalClose"
+                    :preset-values="questionModalPresetValues"
+                />
             </div>
         </div>
         <div class="drawer-side w-full z-10">
@@ -59,7 +71,7 @@ const onQuestionListEditItem = (questionId: string) => {
                     <Toolbar />
                     <div class="flex-grow"></div>
                     <label for="main-drawer" class="drawer-button btn btn-sm btn-square lg:hidden">
-                        <Icon name="md-close"></Icon>
+                        <div class="i-tabler-x"></div>
                     </label>
                 </div>
                 <PlayerSection />

@@ -7,7 +7,7 @@
             class="btn btn-sm btn-square text-success hover:btn-success"
             onclick="save_modal.showModal()"
         >
-            <Icon name="md-save"></Icon>
+            <div class="i-tabler-device-floppy"></div>
         </button>
     </span>
     <Modal name="save_modal">

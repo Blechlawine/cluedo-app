@@ -16,7 +16,7 @@
         >
             <tr v-for="card in CardStore.cards" :key="card.id" class="hover">
                 <td class="drag-handle">
-                    <Icon name="md-dragindicator"></Icon>
+                    <div class="i-tabler-grip-vertical"></div>
                 </td>
                 <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ card.name }}</td>
                 <td>
@@ -25,7 +25,7 @@
                         class="btn btn-sm btn-square btn-ghost"
                         @click="() => onEditClick(card.id)"
                     >
-                        <Icon name="md-edit"></Icon>
+                        <div class="i-tabler-pencil"></div>
                     </label>
                 </td>
                 <td>
@@ -33,7 +33,7 @@
                         class="btn btn-sm btn-square btn-ghost hover:btn-error"
                         @click="() => onDeleteClick(card.id)"
                     >
-                        <Icon name="md-delete"></Icon>
+                        <div class="i-tabler-trash"></div>
                     </button>
                 </td>
             </tr>
@@ -41,11 +41,11 @@
     </table>
     <div class="p-2 flex flex-row gap-2 items-center justify-center" v-if="!CardStore.cards.length">
         <!-- <button @click="addSuperCluedoCards" class="btn btn-sm">
-            <Icon name="md-add"></Icon>
+            <div class="i-tabler-plus"></div>
             Super Cluedo
         </button> -->
         <button @click="addCluedoCards" class="btn btn-sm">
-            <Icon name="md-add"></Icon>
+            <div class="i-tabler-plus"></div>
             Cluedo
         </button>
     </div>

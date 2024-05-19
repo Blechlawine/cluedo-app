@@ -8,7 +8,7 @@
                     class="btn btn-sm btn-circle absolute right-2 top-2"
                     @click="closeBtnClick"
                 >
-                    <Icon name="md-close"></Icon>
+                    <div class="i-tabler-x"></div>
                 </label>
                 <h3 class="text-lg font-bold">{{ props.title ?? $t("create-new-card") }}</h3>
                 <div class="">
@@ -83,7 +83,7 @@ watch(
     },
     {
         deep: true,
-    }
+    },
 );
 
 const name = ref("");

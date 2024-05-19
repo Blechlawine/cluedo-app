@@ -22,7 +22,7 @@
                             class="btn hover:btn-warning btn-sm btn-square"
                             @click="openGame(game.id)"
                         >
-                            <Icon name="md-fileopen"></Icon>
+                            <div class="i-tabler-file-import"></div>
                         </button>
                     </td>
                 </tr>

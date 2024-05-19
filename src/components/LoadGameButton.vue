@@ -4,7 +4,7 @@
         :data-tip="$t('load_game_tooltip')"
     >
         <label for="saveDataInput" class="btn btn-sm btn-square text-warning hover:btn-warning">
-            <Icon name="md-fileopen"></Icon>
+            <div class="i-tabler-file-import"></div>
         </label>
     </span>
     <teleport to="body">
