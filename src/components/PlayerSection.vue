@@ -20,11 +20,11 @@
     </div>
 </template>
 <script setup lang="ts">
-import PlayerList from "./PlayerList.vue";
-import PlayerModal from "./PlayerModal.vue";
 import { ref } from "vue";
 import usePlayers from "../store/playerStore";
 import type { PlayerInput, PlayerOutput } from "../types/validators";
+import PlayerList from "./PlayerList.vue";
+import PlayerModal from "./PlayerModal.vue";
 
 const PlayerStore = usePlayers();
 

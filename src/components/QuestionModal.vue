@@ -10,7 +10,11 @@
                     <option disabled selected :value="null">
                         {{ $t("pick-one-player") }}
                     </option>
-                    <option v-for="player in PlayerStore.players" :key="player.id" :value="player.id">
+                    <option
+                        v-for="player in PlayerStore.players"
+                        :key="player.id"
+                        :value="player.id"
+                    >
                         {{ player.name }}
                     </option>
                 </select>
@@ -26,7 +30,11 @@
                     <option :value="null">
                         {{ $t("no-player") }}
                     </option>
-                    <option v-for="player in PlayerStore.players" :key="player.id" :value="player.id">
+                    <option
+                        v-for="player in PlayerStore.players"
+                        :key="player.id"
+                        :value="player.id"
+                    >
                         {{ player.name }}
                     </option>
                 </select>
@@ -83,10 +91,10 @@
     </Modal>
 </template>
 <script setup lang="ts">
-import { PropType, ref, watch } from "vue";
+import { type PropType, ref, watch } from "vue";
 import useCards from "../store/cardStore";
 import usePlayers from "../store/playerStore";
-import { QuestionInput, QuestionOutput } from "../types/validators";
+import type { QuestionInput, QuestionOutput } from "../types/validators";
 import Modal from "./Modal.vue";
 
 const PlayerStore = usePlayers();
@@ -129,7 +137,7 @@ watch(
     },
     {
         deep: true,
-    }
+    },
 );
 
 const askingPlayerId = ref<string | null>(null);
@@ -164,19 +172,21 @@ const saveBtnClick = (event: Event) => {
         // TODO: Show alert
     } else {
         const askingPlayerIndex = PlayerStore.players.findIndex(
-            (p) => p.id === askingPlayerId.value
+            (p) => p.id === askingPlayerId.value,
         );
         let emptyPlayers: string[] = [];
         if (answeringPlayerId.value === null) {
-            emptyPlayers = PlayerStore.players.filter(p => p.id !== askingPlayerId.value).map(p => p.id);
+            emptyPlayers = PlayerStore.players
+                .filter((p) => p.id !== askingPlayerId.value)
+                .map((p) => p.id);
         } else {
             const answeringPlayerIndex = PlayerStore.players.findIndex(
-                (p) => p.id === answeringPlayerId.value
+                (p) => p.id === answeringPlayerId.value,
             );
-            let tempEmptyPlayers: number[] = [];
+            const tempEmptyPlayers: number[] = [];
             // Adapted from https://stackoverflow.com/a/61928036
             let end = answeringPlayerIndex;
-            let start = askingPlayerIndex + 1;
+            const start = askingPlayerIndex + 1;
             if (answeringPlayerIndex < askingPlayerIndex) {
                 end += PlayerStore.players.length;
             }
@@ -198,40 +208,3 @@ const saveBtnClick = (event: Event) => {
     }
 };
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

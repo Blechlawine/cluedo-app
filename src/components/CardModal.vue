@@ -49,8 +49,8 @@
     </teleport>
 </template>
 <script setup lang="ts">
-import { PropType, ref, watch } from "vue";
-import { CardInput, CardOutput } from "../types/validators";
+import { type PropType, ref, watch } from "vue";
+import type { CardInput, CardOutput } from "../types/validators";
 
 const props = defineProps({
     open: {

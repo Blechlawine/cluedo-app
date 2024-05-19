@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import PlayerSection from "../components/PlayerSection.vue";
+import { ref } from "vue";
 import CardSection from "../components/CardSection.vue";
+import MainTable from "../components/MainTable.vue";
+import PlayerSection from "../components/PlayerSection.vue";
 import QuestionList from "../components/QuestionList.vue";
 import QuestionModal from "../components/QuestionModal.vue";
-import type { QuestionInput, QuestionOutput } from "../types/validators";
-import { ref } from "vue";
-import useQuestions from "../store/questionStore";
-import MainTable from "../components/MainTable.vue";
 import Toolbar from "../components/Toolbar.vue";
+import useQuestions from "../store/questionStore";
+import type { QuestionInput, QuestionOutput } from "../types/validators";
 
 const QuestionStore = useQuestions();
 

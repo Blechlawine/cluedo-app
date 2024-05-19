@@ -32,8 +32,8 @@
     </table>
 </template>
 <script setup lang="ts">
-import QuestionListRow from "./QuestionListRow.vue";
 import useQuestions from "../store/questionStore";
+import QuestionListRow from "./QuestionListRow.vue";
 
 const QuestionStore = useQuestions();
 
@@ -44,9 +44,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits<{
-    (e: "editItem", id: string): void;
-}>();
+const emit = defineEmits<(e: "editItem", id: string) => void>();
 
 const onEditClick = (id: string) => {
     emit("editItem", id);

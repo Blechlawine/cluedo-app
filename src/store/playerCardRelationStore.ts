@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
+import { ref } from "vue";
 import {
     type PlayerCardRelationInput,
     type PlayerCardRelationOutput,
     PlayerCardRelationValidator,
 } from "../types/validators";
-import { ref } from "vue";
 
 const usePlayerCardRelations = defineStore(
     "playerCardRelations",

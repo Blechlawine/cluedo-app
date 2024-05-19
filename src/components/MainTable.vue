@@ -112,13 +112,13 @@ const PlayerCardRelationStore = usePlayerCardRelations();
 
 function getTdClasses(playerId: string, cardId: string) {
     const relation = PlayerCardRelationStore.getByPlayerIdAndCardId(playerId, cardId);
-    if (relation && relation.value) {
+    if (relation?.value) {
         return "bg-success text-success-content";
-    } else if (relation && !relation.value) {
-        return "bg-error text-error-content";
-    } else {
-        return "bg-warning text-warning-content";
     }
+    if (relation && !relation.value) {
+        return "bg-error text-error-content";
+    }
+    return "bg-warning text-warning-content";
 }
 
 function getTrClasses(cardId: string) {

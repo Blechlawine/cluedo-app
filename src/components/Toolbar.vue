@@ -52,11 +52,11 @@
     </Modal>
 </template>
 <script setup lang="ts">
-import useLanguages from "../store/languageStore";
 import LoadGameButton from "../components/LoadGameButton.vue";
+import Modal from "../components/Modal.vue";
 import SaveGameButton from "../components/SaveGameButton.vue";
 import useGameDataStore from "../store/gameDataStore";
-import Modal from "../components/Modal.vue";
+import useLanguages from "../store/languageStore";
 
 const GameDataStore = useGameDataStore();
 const LanguageStore = useLanguages();

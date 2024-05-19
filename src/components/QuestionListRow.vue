@@ -12,11 +12,11 @@
     </td>
 </template>
 <script setup lang="ts">
-import { computed, PropType } from "vue";
 import day from "dayjs";
+import { type PropType, computed } from "vue";
 import useCards from "../store/cardStore";
 import usePlayers from "../store/playerStore";
-import { QuestionOutput } from "../types/validators";
+import type { QuestionOutput } from "../types/validators";
 
 const PlayerStore = usePlayers();
 const CardStore = useCards();
@@ -29,20 +29,20 @@ const props = defineProps({
 });
 
 const askingPlayer = computed(() =>
-    PlayerStore.players.find((p) => p.id === props.question.askingPlayerId)
+    PlayerStore.players.find((p) => p.id === props.question.askingPlayerId),
 );
 const answeringPlayer = computed(() =>
-    PlayerStore.players.find((p) => p.id === props.question.answeringPlayerId)
+    PlayerStore.players.find((p) => p.id === props.question.answeringPlayerId),
 );
 const timestamp = computed(() => day(props.question.timestamp));
 
 const suspectCard = computed(() =>
-    CardStore.cards.find((c) => c.id === props.question.suspectCardId)
+    CardStore.cards.find((c) => c.id === props.question.suspectCardId),
 );
 const weaponCard = computed(() =>
-    CardStore.cards.find((c) => c.id === props.question.weaponCardId)
+    CardStore.cards.find((c) => c.id === props.question.weaponCardId),
 );
 const locationCard = computed(() =>
-    CardStore.cards.find((c) => c.id === props.question.locationCardId)
+    CardStore.cards.find((c) => c.id === props.question.locationCardId),
 );
 </script>

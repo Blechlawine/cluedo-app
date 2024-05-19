@@ -30,11 +30,11 @@
     </Modal>
 </template>
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import useGameDataStore from "../store/gameDataStore";
+import { computed, ref } from "vue";
 import FormControl from "../components/FormControl.vue";
 import Modal from "../components/Modal.vue";
 import useApiStore from "../store/apiStore";
+import useGameDataStore from "../store/gameDataStore";
 
 const GameDataStore = useGameDataStore();
 const ApiStore = useApiStore();

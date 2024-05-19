@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { type QuestionInput, type QuestionOutput, QuestionValidator } from "../types/validators";
 import { ref } from "vue";
+import { type QuestionInput, type QuestionOutput, QuestionValidator } from "../types/validators";
 import usePlayerCardRelations from "./playerCardRelationStore";
 
 const useQuestions = defineStore(

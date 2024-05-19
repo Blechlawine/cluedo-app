@@ -33,8 +33,8 @@ const GameDataStore = useGameDataStore();
 const loadSaveData = (event: Event) => {
     const eventTarget = event.target as HTMLInputElement;
     if (!eventTarget.value.length) return;
-    else if (eventTarget.files) {
-        let reader = new FileReader();
+    if (eventTarget.files) {
+        const reader = new FileReader();
         reader.onload = (e) => {
             const raw = e.target?.result as string;
             const parsed = GameDataStore.deserialize(raw);

@@ -51,10 +51,10 @@
     </div>
 </template>
 <script setup lang="ts">
+import { VueDraggableNext as Draggable } from "vue-draggable-next";
 import { useI18n } from "vue-i18n";
 import useCards from "../store/cardStore";
-import { VueDraggableNext as Draggable } from "vue-draggable-next";
-import { CardInput } from "../types/validators";
+import type { CardInput } from "../types/validators";
 
 const CardStore = useCards();
 const { t } = useI18n();
@@ -66,9 +66,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits<{
-    (e: "editItem", id: string): void;
-}>();
+const emit = defineEmits<(e: "editItem", id: string) => void>();
 
 const onEditClick = (id: string) => {
     emit("editItem", id);

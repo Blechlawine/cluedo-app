@@ -43,8 +43,8 @@
     </table>
 </template>
 <script setup lang="ts">
-import usePlayers from "../store/playerStore";
 import { VueDraggableNext as Draggable } from "vue-draggable-next";
+import usePlayers from "../store/playerStore";
 
 const PlayerStore = usePlayers();
 
@@ -52,7 +52,5 @@ const props = defineProps<{
     label: string;
 }>();
 
-const emit = defineEmits<{
-    (e: "editItem", id: string): void;
-}>();
+const emit = defineEmits<(e: "editItem", id: string) => void>();
 </script>

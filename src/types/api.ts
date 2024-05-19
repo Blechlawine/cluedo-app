@@ -1,4 +1,4 @@
-import { GameDataOutput } from "./validators";
+import type { GameDataOutput } from "./validators";
 
 export type ListResponse = GameDataOutput[];
 

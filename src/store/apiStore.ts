@@ -1,7 +1,7 @@
-import { ListResponse, SaveResponse } from "../types/api";
-import useGameDataStore from "./gameDataStore";
 import { useAsyncState } from "@vueuse/core";
 import { defineStore } from "pinia";
+import type { ListResponse, SaveResponse } from "../types/api";
+import useGameDataStore from "./gameDataStore";
 
 const useApiStore = defineStore("api", () => {
     const saved = useAsyncState(getList, []);

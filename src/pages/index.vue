@@ -32,11 +32,11 @@
 </template>
 <script setup lang="ts">
 import dayjs from "dayjs";
-import useApiStore from "../store/apiStore";
-import Toolbar from "../components/Toolbar.vue";
 import { onMounted } from "vue";
-import useGameDataStore from "../store/gameDataStore";
 import { useRouter } from "vue-router";
+import Toolbar from "../components/Toolbar.vue";
+import useApiStore from "../store/apiStore";
+import useGameDataStore from "../store/gameDataStore";
 
 const ApiStore = useApiStore();
 const GameDataStore = useGameDataStore();

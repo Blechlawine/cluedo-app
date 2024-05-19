@@ -45,8 +45,8 @@
     </teleport>
 </template>
 <script setup lang="ts">
-import { PropType, ref, watch } from "vue";
-import { PlayerInput, PlayerOutput } from "../types/validators";
+import { type PropType, ref, watch } from "vue";
+import type { PlayerInput, PlayerOutput } from "../types/validators";
 
 const props = defineProps({
     open: {

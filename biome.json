@@ -5,14 +5,20 @@
         "indentStyle": "space",
         "lineWidth": 100,
         "formatWithErrors": true,
-        "ignore": [".pnp.cjs", "server"]
+        "ignore": [".pnp.cjs", "server", "node_modules"]
     },
     "linter": {
         "rules": {
             "a11y": {
                 "useKeyWithClickEvents": "off"
             }
-        }
+        },
+        "ignore": ["node_modules"]
+    },
+    "files": {
+        "maxSize": 1073741824,
+        "ignore": [".pnp.cjs", "node_modules", "dist", ".git", "src/vite-env.d.ts"],
+        "ignoreUnknown": true
     },
     "organizeImports": {
         "enabled": true

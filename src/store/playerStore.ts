@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { type PlayerInput, type PlayerOutput, PlayerValidator } from "../types/validators";
 import { ref } from "vue";
+import { type PlayerInput, type PlayerOutput, PlayerValidator } from "../types/validators";
 
 const usePlayers = defineStore(
     "players",
