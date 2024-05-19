@@ -36,6 +36,17 @@ const usePlayerCardRelations = defineStore(
                 } else {
                     playerCardRelations.value.push(data);
                 }
+                // disable this card for all other players, if one player has it
+                if (data.value) {
+                    for (const relation of playerCardRelations.value) {
+                        if (
+                            relation.cardId === data.cardId &&
+                            relation.playerId !== data.playerId
+                        ) {
+                            relation.value = false;
+                        }
+                    }
+                }
             }
         }
 
