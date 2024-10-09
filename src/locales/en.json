@@ -55,7 +55,30 @@
             "green": "Reverend Green",
             "yellow": "Colonel Mustard",
             "white": "Mrs. White",
-            "purple": "Professor Plum"
+            "purple": "Professor Plum",
+            "brown": "Mister Brown",
+            "grey": "Inspector Grey",
+            "orange": "Madame Mystique",
+            "pink": "Lady Sarah",
+            "avengers": {
+                "captain_america": "Captain America",
+                "doctor_strange": "Doctor Strange",
+                "wasp": "Wasp",
+                "yondu": "Yondu",
+                "captain_marvel": "Captain Marvel",
+                "hulk": "Hulk",
+                "spiderman": "Spiderman",
+                "pepper": "Pepper",
+                "thor": "Thor",
+                "starlord": "Starlord",
+                "hawkeye": "Hawkeye",
+                "black_panther": "Black Panther",
+                "iron_man": "Iron Man",
+                "gamora": "Gamora",
+                "black_widow": "Black Widow",
+                "groot": "Groot",
+                "rocket": "Rocket"
+            }
         },
         "weapon": {
             "dagger": "Dagger",
@@ -63,7 +86,23 @@
             "revolver": "Revolver",
             "spanner": "Spanner",
             "light": "Candlestick",
-            "rope": "Rope"
+            "rope": "Rope",
+            "poison": "Bottle of poison",
+            "horseshoe": "Horseshoe",
+            "avengers": {
+                "sceptre": "Sceptre",
+                "knife": "Gamora's knife",
+                "powerstone": "Power stone",
+                "slingring": "Slingring",
+                "tesseract": "Tesseract",
+                "shrink-disc": "Shrink-disc",
+                "thors_hammer": "Mjölnir",
+                "shield": "Shield",
+                "web_shooter": "Web shooter",
+                "gauntlet": "Infinity gauntlet",
+                "blaster": "Blaster",
+                "bow_and_arrow": "Bow and arrow"
+            }
         },
         "location": {
             "hall": "Hall",
@@ -74,7 +113,13 @@
             "ballroom": "Ballroom",
             "billiardroom": "Billiard room",
             "library": "Library",
-            "study": "Study"
+            "study": "Study",
+            "garden": "Garden",
+            "salon": "Salon",
+            "pavillion": "Pavillion",
+            "fountain": "Fountain",
+            "stables": "Stables",
+            "wintergarden": "Wintergarden"
         }
     }
 }

@@ -55,7 +55,30 @@
             "green": "Reverend Grün",
             "yellow": "Oberst von Gatow",
             "white": "Frau Weiß",
-            "purple": "Professor Bloom"
+            "purple": "Professor Bloom",
+            "brown": "Herr Braun",
+            "grey": "Inspektor Klein",
+            "orange": "Madame Mystique",
+            "pink": "Lady Sarah",
+            "avengers": {
+                "captain_america": "Captain America",
+                "doctor_strange": "Doctor Strange",
+                "wasp": "Wasp",
+                "yondu": "Yondu",
+                "captain_marvel": "Captain Marvel",
+                "hulk": "Hulk",
+                "spiderman": "Spiderman",
+                "pepper": "Pepper",
+                "thor": "Thor",
+                "starlord": "Starlord",
+                "hawkeye": "Hawkeye",
+                "black_panther": "Black Panther",
+                "iron_man": "Iron Man",
+                "gamora": "Gamora",
+                "black_widow": "Black Widow",
+                "groot": "Groot",
+                "rocket": "Rocket"
+            }
         },
         "weapon": {
             "dagger": "Dolch",
@@ -63,18 +86,40 @@
             "revolver": "Pistole",
             "spanner": "Rohrzange",
             "light": "Leuchter",
-            "rope": "Seil"
+            "rope": "Seil",
+            "poison": "Giftflasche",
+            "horseshoe": "Hufeisen",
+            "avengers": {
+                "sceptre": "Zepter",
+                "knife": "Gamoras Messer",
+                "powerstone": "Machtstein",
+                "slingring": "Slingring",
+                "tesseract": "Tesserakt",
+                "shrink-disc": "Pym-Partikel-Scheibe",
+                "thors_hammer": "Mjölnir",
+                "shield": "Schild",
+                "web_shooter": "Netzshooter",
+                "gauntlet": "Handschuh",
+                "blaster": "Blaster",
+                "bow_and_arrow": "Pfeil und Bogen"
+            }
         },
         "location": {
             "hall": "Halle",
-            "lounge": "Salon",
+            "lounge": "Lounge",
             "diningroom": "Speisezimmer",
-            "kitchen": "Kueche",
+            "kitchen": "Küche",
             "conservatory": "Wintergarten",
             "ballroom": "Musikzimmer",
             "billiardroom": "Billiardzimmer",
             "library": "Bibliothek",
-            "study": "Arbeitszimmer"
+            "study": "Arbeitszimmer",
+            "garden": "Garten",
+            "salon": "Salon",
+            "pavillion": "Pavillion",
+            "fountain": "Springbrunnen",
+            "stables": "Stallungen",
+            "wintergarden": "Wintergarten"
         }
     }
 }
