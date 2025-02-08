@@ -12,29 +12,23 @@
         <Draggable
             tag="tbody"
             handle=".drag-handle"
+            :draggable="noQuestions"
             :list="PlayerStore.players"
             ghost-class="opacity-50"
         >
             <tr v-for="player in PlayerStore.players" class="hover" :key="player.id">
-                <td class="drag-handle">
+                <td class="drag-handle" v-if="noQuestions">
                     <div class="i-tabler-grip-vertical"></div>
                 </td>
                 <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ player.name }}</td>
                 <td>{{ player.cardAmount }}</td>
                 <td>
-                    <label
-                        :for="props.label"
-                        class="btn btn-sm btn-square btn-ghost"
-                        @click="emit('editItem', player.id)"
-                    >
+                    <label :for="props.label" class="btn btn-sm btn-square btn-ghost" @click="emit('editItem', player.id)">
                         <div class="i-tabler-pencil"></div>
                     </label>
                 </td>
                 <td>
-                    <button
-                        class="btn btn-sm btn-square btn-ghost hover:btn-error"
-                        @click="PlayerStore.deleteByID(player.id)"
-                    >
+                    <button class="btn btn-sm btn-square btn-ghost hover:btn-error" @click="PlayerStore.deleteByID(player.id)">
                         <div class="i-tabler-trash"></div>
                     </button>
                 </td>
@@ -45,6 +39,8 @@
 <script setup lang="ts">
 import { VueDraggableNext as Draggable } from "vue-draggable-next";
 import usePlayers from "../store/playerStore";
+import useQuestions from "../store/questionStore";
+import { computed } from "vue";
 
 const PlayerStore = usePlayers();
 
@@ -53,4 +49,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<(e: "editItem", id: string) => void>();
+
+const QuestionStore = useQuestions();
+const noQuestions = computed(() => QuestionStore.questions.length === 0);
 </script>
