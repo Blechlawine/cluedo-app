@@ -28,17 +28,14 @@ const onQuestionListEditItem = (questionId: string) => {
 </script>
 
 <template>
-    <div class="drawer">
+    <div class="drawer 2xl:drawer-open">
         <input type="checkbox" class="drawer-toggle" id="main-drawer" />
         <div class="drawer-content grid h-screen overflow-hidden">
             <div class="tools flex flex-row border-b-2 border-base-300 p-2 gap-2">
-                <label for="main-drawer" class="btn btn-sm btn-square drawer-button">
+                <label for="main-drawer" class="btn btn-sm btn-square drawer-button 2xl:hidden">
                     <div class="i-tabler-menu-2"></div>
                 </label>
-                <button
-                    onclick="questionModal.showModal()"
-                    class="btn btn-sm modal-button flex gap-1 pl-2"
-                >
+                <button onclick="questionModal.showModal()" class="btn btn-sm modal-button flex gap-1 pl-2">
                     <div class="i-tabler-plus"></div>
                     {{ $t("question") }}
                 </button>
@@ -46,12 +43,8 @@ const onQuestionListEditItem = (questionId: string) => {
             <main class="overflow-y-auto">
                 <MainTable />
             </main>
-            <div
-                class="questions flex flex-col sm:border-l-2 max-sm:border-t-2 border-base-300 overflow-auto"
-            >
-                <div
-                    class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 bg-base-100"
-                >
+            <div class="questions flex flex-col sm:border-l-2 max-sm:border-t-2 border-base-300 overflow-auto">
+                <div class="flex flex-row justify-between items-center sticky p-2 top-0 left-0 bg-base-100">
                     <h1>{{ $t("questions") }}</h1>
                 </div>
                 <QuestionList label="questionModal" @edit-item="onQuestionListEditItem" />

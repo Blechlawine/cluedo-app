@@ -1,14 +1,10 @@
 <template>
-    <span v-if="$route.path !== '/'" class="btn btn-sm btn-square">
+    <span v-if="$route.path !== '/'" class="btn btn-sm btn-square 2xl:hidden">
         <label for="main-drawer" class="cursor-pointer">
             <div class="i-tabler-x"></div>
         </label>
     </span>
-    <span
-        v-if="$route.path !== '/'"
-        class="tooltip tooltip-right hover:z-50"
-        :data-tip="$t('back_to_overview')"
-    >
+    <span v-if="$route.path !== '/'" class="tooltip tooltip-right hover:z-50" :data-tip="$t('back_to_overview')">
         <router-link to="/" class="btn btn-sm btn-square">
             <div class="i-tabler-arrow-back"></div>
         </router-link>
@@ -19,10 +15,7 @@
         </router-link>
     </span>
     <span class="tooltip tooltip-right tooltip-error hover:z-50" :data-tip="$t('new_game_tooltip')">
-        <button
-            class="btn btn-sm btn-square text-error hover:btn-error"
-            onclick="newGameModal.showModal()"
-        >
+        <button class="btn btn-sm btn-square text-error hover:btn-error" onclick="newGameModal.showModal()">
             <div class="i-tabler-file-plus"></div>
         </button>
     </span>
