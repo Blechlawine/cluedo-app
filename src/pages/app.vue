@@ -5,9 +5,11 @@ import MainTable from "../components/MainTable.vue";
 import PlayerSection from "../components/PlayerSection.vue";
 import QuestionList from "../components/QuestionList.vue";
 import QuestionModal from "../components/QuestionModal.vue";
+import Modal from "../components/Modal.vue";
 import Toolbar from "../components/Toolbar.vue";
 import useQuestions from "../store/questionStore";
 import type { QuestionInput, QuestionOutput } from "../types/validators";
+import useGameDataStore from "../store/gameDataStore";
 
 const QuestionStore = useQuestions();
 
@@ -25,6 +27,8 @@ const onQuestionModalSave = (data: QuestionInput) => {
 const onQuestionListEditItem = (questionId: string) => {
     questionModalPresetValues.value = QuestionStore.getByID(questionId) ?? null;
 };
+
+const gameDataStore = useGameDataStore();
 </script>
 
 <template>
@@ -39,6 +43,20 @@ const onQuestionListEditItem = (questionId: string) => {
                     <div class="i-tabler-plus"></div>
                     {{ $t("question") }}
                 </button>
+                <button class="btn btn-sm btn-square" onclick="notesModal.showModal()">
+                    <div class="i-tabler-notes"></div>
+                </button>
+                <Modal name="notesModal">
+                    <textarea
+                        class="textarea"
+                        autofocus
+                        rows="20"
+                        cols="60"
+                        name="notes"
+                        id="notes"
+                        v-model="gameDataStore.notes"
+                    ></textarea>
+                </Modal>
             </div>
             <main class="overflow-y-auto">
                 <MainTable />

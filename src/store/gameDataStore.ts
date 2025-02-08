@@ -20,11 +20,13 @@ const useGameDataStore = defineStore(
 
         const isSaved = ref(false);
 
+        const notes = ref("");
         const gameData = computed(() => ({
             cards: CardStore.cards,
             players: PlayerStore.players,
             questions: QuestionStore.questions,
             playerCardRelations: PlayerCardRelationStore.playerCardRelations,
+            notes: notes.value,
         }));
 
         watch(
@@ -88,11 +90,12 @@ const useGameDataStore = defineStore(
             startNewGame,
             isGameGoing,
             isSaved,
+            notes,
         };
     },
     {
         persist: {
-            paths: ["isSaved"],
+            paths: ["isSaved", "notes"],
         },
     },
 );
