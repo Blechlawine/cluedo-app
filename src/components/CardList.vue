@@ -15,21 +15,19 @@
                 </td>
                 <td class="whitespace-nowrap text-ellipsis overflow-hidden">{{ card.name }}</td>
                 <td>
-                    <label :for="props.label" class="btn btn-sm btn-square btn-ghost"
-                        @click="() => onEditClick(card.id)">
+                    <label :for="props.label" class="btn btn-sm btn-square btn-ghost" @click="() => onEditClick(card.id)">
                         <div class="i-tabler-pencil"></div>
                     </label>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-square btn-ghost hover:btn-error"
-                        @click="() => onDeleteClick(card.id)">
+                    <button class="btn btn-sm btn-square btn-ghost hover:btn-error" @click="() => onDeleteClick(card.id)">
                         <div class="i-tabler-trash"></div>
                     </button>
                 </td>
             </tr>
         </Draggable>
     </table>
-    <div class="p-2 flex flex-row gap-2 items-center justify-center" v-if="!CardStore.cards.length">
+    <div class="p-2 flex flex-row w-full flex-wrap gap-2 items-center justify-center" v-if="!CardStore.cards.length">
         <button @click="addSuperCluedoCards" class="btn btn-sm">
             <div class="i-tabler-plus"></div>
             Super Cluedo
